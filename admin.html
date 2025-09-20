@@ -1,0 +1,2254 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🔐 پنل مدیریت شجره‌نامه پیشرفته</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+        font-family: 'Vazirmatn', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --success-color: #27ae60;
+      --warning-color: #f39c12;
+      --danger-color: #e74c3c;
+      --info-color: #8e44ad;
+      --bg-light: #f8f9fa;
+      --bg-dark: #1a1a1a;
+      --text-light: #2c3e50;
+      --text-dark: #ffffff;
+      --card-light: #ffffff;
+      --card-dark: #2d2d2d;
+      --border-light: #e1e8ed;
+      --border-dark: #404040;
+      --shadow-light: rgba(0,0,0,0.1);
+      --shadow-dark: rgba(255,255,255,0.1);
+    }
+    [data-theme="dark"] {
+      --bg-color: var(--bg-dark);
+      --text-color: var(--text-dark);
+      --card-color: var(--card-dark);
+      --border-color: var(--border-dark);
+      --shadow-color: var(--shadow-dark);
+    }
+    [data-theme="light"] {
+      --bg-color: var(--bg-light);
+      --text-color: var(--text-light);
+      --card-color: var(--card-light);
+      --border-color: var(--border-light);
+      --shadow-color: var(--shadow-light);
+    }
+    body {
+      background: linear-gradient(135deg, var(--bg-color), #f1f3f4);
+      color: var(--text-color);
+      font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+      min-height: 100vh;
+      transition: all 0.3s ease;
+    }
+    /* Header */
+    .header {
+      background: var(--card-color);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 20px var(--shadow-color);
+    }
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .header h1 {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    /* Cards */
+    .card {
+      background: var(--card-color);
+      border-radius: 16px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 32px var(--shadow-color);
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 48px var(--shadow-color);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--border-color);
+    }
+    .card-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    /* Forms */
+    .form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+/* File Upload Styling - اصلاح شده */
+.file-input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  overflow: hidden; /* اضافه شده: جلوگیری از overflow */
+}
+.file-input {
+  position: absolute;
+  top: 0;
+  right: 0; /* تغییر: از left به right برای سازگاری بهتر با dir="rtl" */
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 10;
+}
+.file-input-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border: 2px dashed var(--border-color);
+  border-radius: 10px;
+  background: var(--card-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none; /* اضافه شده: جلوگیری از انتخاب متن */
+}
+.file-input-label:hover {
+  border-color: var(--secondary-color);
+  background: rgba(52, 152, 219, 0.05);
+}
+.file-input-label.has-file {
+  border-color: var(--success-color);
+  background: rgba(39, 174, 96, 0.05);
+  color: var(--success-color);
+}
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--text-color);
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid var(--border-color);
+      border-radius: 10px;
+      background: var(--card-color);
+      color: var(--text-color);
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .form-control:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+    .form-control:invalid {
+      border-color: var(--danger-color);
+    }
+    textarea.form-control {
+      resize: vertical;
+      min-height: 80px;
+    }
+    /* Buttons */
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      background: var(--secondary-color);
+      color: white;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+    }
+    .btn:active {
+      transform: translateY(0);
+    }
+    .btn-success { background: var(--success-color); }
+    .btn-warning { background: var(--warning-color); }
+    .btn-danger { background: var(--danger-color); }
+    .btn-info { background: var(--info-color); }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--border-color);
+      color: var(--text-color);
+    }
+    .btn-outline:hover {
+      background: var(--border-color);
+    }
+    .btn-sm {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+    .btn-lg {
+      padding: 16px 24px;
+      font-size: 16px;
+    }
+    /* Preview Card */
+    .preview-card {
+      background: var(--card-color);
+      border: 2px dashed var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .preview-card:hover {
+      border-color: var(--secondary-color);
+      background: linear-gradient(135deg, var(--card-color), rgba(52, 152, 219, 0.05));
+    }
+    .preview-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--border-color);
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+    .preview-card:hover .preview-avatar {
+      border-color: var(--secondary-color);
+      transform: scale(1.1);
+    }
+    .preview-name {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: var(--text-color);
+    }
+    .preview-info {
+      color: var(--text-color);
+      opacity: 0.7;
+      font-size: 0.9em;
+    }
+    /* Login Section */
+    .login-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--secondary-color), var(--info-color));
+    }
+    .login-card {
+      background: var(--card-color);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: slideUp 0.6s ease-out;
+    }
+    .login-icon {
+      font-size: 4em;
+      color: var(--secondary-color);
+      margin-bottom: 20px;
+    }
+    .login-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 30px;
+      color: var(--text-color);
+    }
+    /* Status Bar */
+    .status-bar {
+      background: linear-gradient(135deg, var(--info-color), var(--secondary-color));
+      color: white;
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      text-align: center;
+    }
+    .status-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .status-number {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .status-label {
+      font-size: 0.9em;
+      opacity: 0.9;
+      margin-top: 5px;
+    }
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card-color);
+    }
+    .table th,
+    .table td {
+      padding: 12px 15px;
+      text-align: right;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .table th {
+      background: var(--border-color);
+      font-weight: 600;
+      color: var(--text-color);
+    }
+    .table tr:hover {
+      background: rgba(52, 152, 219, 0.05);
+    }
+    /* Alert Messages */
+/* Alert Messages - اصلاح شده برای جلوگیری از همپوشانی */
+.alert {
+  padding: 15px 20px;
+  border-radius: 10px;
+  margin: 0; /* حذف margin برای جلوگیری از جابجایی ناخواسته */
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* ========== اضافات جدید ========== */
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000; /* اطمینان از اینکه همیشه در بالاترین لایه است */
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: slideDown 0.3s ease-out; /* اضافه کردن انیمیشن برای ظاهر شدن نرم */
+}
+/* انیمیشن جدید برای ظاهر شدن هشدار */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -30px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+    .alert-success {
+      background: rgba(39, 174, 96, 0.1);
+      border-color: var(--success-color);
+      color: var(--success-color);
+    }
+    .alert-warning {
+      background: rgba(243, 156, 18, 0.1);
+      border-color: var(--warning-color);
+      color: var(--warning-color);
+    }
+    .alert-danger {
+      background: rgba(231, 76, 60, 0.1);
+      border-color: var(--danger-color);
+      color: var(--danger-color);
+    }
+    .alert-info {
+      background: rgba(52, 152, 219, 0.1);
+      border-color: var(--secondary-color);
+      color: var(--secondary-color);
+    }
+    /* Loading States */
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+      position: relative;
+    }
+    .loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border-color);
+      border-top-color: var(--secondary-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      transform: translate(-50%, -50%);
+    }
+    /* Animations */
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .fade-in {
+      animation: slideUp 0.6s ease-out;
+    }
+    /* Theme Toggle */
+    .theme-toggle {
+      background: var(--card-color);
+      color: var(--text-color);
+      border: 2px solid var(--border-color);
+    }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .container {
+        padding: 0 15px;
+      }
+      .card {
+        padding: 20px;
+      }
+      .status-bar {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .btn {
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+    }
+    @media (max-width: 480px) {
+      .login-card {
+        margin: 20px;
+        padding: 30px 25px;
+      }
+      .status-bar {
+        grid-template-columns: 1fr;
+      }
+      .header-actions {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    /* File Upload Styling */
+    .file-input-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    .file-input {
+      position: absolute;
+      left: -9999px;
+    }
+    .file-input-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border: 2px dashed var(--border-color);
+      border-radius: 10px;
+      background: var(--card-color);
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .file-input-label:hover {
+      border-color: var(--secondary-color);
+      background: rgba(52, 152, 219, 0.05);
+    }
+    .file-input-label.has-file {
+      border-color: var(--success-color);
+      background: rgba(39, 174, 96, 0.05);
+      color: var(--success-color);
+    }
+    /* ========== NEW STYLES ========== */
+    .spouse-section {
+      background: rgba(52, 152, 219, 0.05);
+      border: 2px dashed var(--secondary-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      display: none;
+    }
+    .spouse-section.active {
+      display: block;
+    }
+    .spouse-section .card-title {
+      color: var(--secondary-color);
+      margin-bottom: 15px;
+    }
+    .generation-header {
+      background: var(--info-color);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin: 20px 0 10px 0;
+      font-weight: bold;
+      text-align: center;
+    }
+    /* ========== EVENT MODAL STYLES ========== */
+    #eventModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Ensure alerts are on top */
+    .alert {
+      z-index: 10000; /* Make sure it's above everything else */
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 500px;
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <!-- Login Section -->
+  <div id="loginSection" class="login-container">
+    <div class="login-card">
+      <div class="login-icon">
+        <i class="fas fa-lock"></i>
+      </div>
+      <h2 class="login-title">ورود به پنل مدیریت</h2>
+      <div class="form-group">
+        <input type="password" id="passwordInput" class="form-control" placeholder="رمز عبور را وارد کنید" onkeypress="handleEnterKey(event)">
+      </div>
+      <button class="btn btn-lg" onclick="checkPassword()" style="width: 100%;">
+        <i class="fas fa-sign-in-alt"></i> ورود
+      </button>
+      <div id="loginError" style="display: none; margin-top: 15px;" class="alert alert-danger">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>رمز عبور اشتباه است!</span>
+      </div>
+    </div>
+  </div>
+  <!-- Admin Panel -->
+  <div id="adminPanel" style="display: none;">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-content">
+        <h1><i class="fas fa-cogs"></i> پنل مدیریت شجره‌نامه</h1>
+        <div class="header-actions">
+          <button class="btn theme-toggle" onclick="toggleTheme()">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="btn btn-outline" onclick="backupData()">
+            <i class="fas fa-download"></i> پشتیبان‌گیری
+          </button>
+          <button class="btn btn-info" onclick="importData()">
+            <i class="fas fa-upload"></i> بازیابی
+          </button>
+          <a href="index.html" class="btn btn-success">
+            <i class="fas fa-eye"></i> مشاهده شجره‌نامه
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <!-- Status Bar -->
+      <div class="status-bar" id="statusBar">
+        <div class="status-item">
+          <span class="status-number" id="totalMembers">0</span>
+          <span class="status-label">کل اعضا</span>
+        </div>
+        <div class="status-item">
+          <span class="status-number" id="totalMales">0</span>
+          <span class="status-label">مردان</span>
+        </div>
+        <div class="status-item">
+          <span class="status-number" id="totalFemales">0</span>
+          <span class="status-label">زنان</span>
+        </div>
+        <div class="status-item">
+          <span class="status-number" id="lastUpdate">---</span>
+          <span class="status-label">آخرین بروزرسانی</span>
+        </div>
+      </div>
+      <!-- Add New Person -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-user-plus"></i>
+            <span id="formTitle">افزودن فرد جدید</span>
+          </div>
+          <button class="btn btn-sm btn-outline" onclick="resetForm()">
+            <i class="fas fa-redo"></i> پاک کردن فرم
+          </button>
+        </div>
+        <form id="personForm" onsubmit="handleSubmit(event)">
+          <div class="form-grid">
+            <div>
+              <div class="form-group">
+                <label class="form-label">نام کامل *</label>
+                <input type="text" id="nameInput" class="form-control" placeholder="نام و نام خانوادگی" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">سال تولد</label>
+                <input type="text" id="birthInput" class="form-control" placeholder="مثال: ۱۳۶۰">
+              </div>
+              <div class="form-group">
+                <label class="form-label">جنسیت</label>
+                <select id="genderInput" class="form-control">
+                  <option value="male">مرد (♂)</option>
+                  <option value="female">زن (♀)</option>
+                  <option value="unknown">نامشخص (?)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">توضیحات</label>
+                <textarea id="descInput" class="form-control" placeholder="توضیحات اضافی درباره این فرد..." rows="3"></textarea>
+              </div>
+              <!-- ========== NEW FIELD ========== -->
+              <div class="form-group">
+                <label class="form-label">
+                  <input type="checkbox" id="hasSpouseCheckbox">
+                  همسر دارد
+                </label>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+                <label class="form-label">والد</label>
+                <select id="parentInput" class="form-control" disabled>
+                  <option value="">ریشه خانواده</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">تصویر</label>
+                <div class="file-input-wrapper">
+                  <input type="file" id="photoInput" class="file-input" accept="image/*">
+                  <label for="photoInput" class="file-input-label">
+                    <i class="fas fa-camera"></i>
+                    <span id="fileLabel">انتخاب تصویر</span>
+                  </label>
+                </div>
+              </div>
+              <div class="preview-card">
+                <img id="previewImage" class="preview-avatar" src="https://ui-avatars.com/api/?name=پیش‌نمایش&background=random&size=150" alt="پیش‌نمایش">
+                <div class="preview-name" id="previewName">پیش‌نمایش فرد</div>
+                <div class="preview-info" id="previewInfo">اطلاعات نمایش داده می‌شود</div>
+              </div>
+            </div>
+          </div>
+          <!-- ========== SPOUSE SECTION ========== -->
+          <div id="spouseSection" class="spouse-section">
+            <div class="card-title">
+              <i class="fas fa-heart"></i>
+              اطلاعات همسر
+            </div>
+            <div class="form-grid">
+              <div>
+                <div class="form-group">
+                  <label class="form-label">نام کامل همسر *</label>
+                  <input type="text" id="spouseNameInput" class="form-control" placeholder="نام و نام خانوادگی همسر" >
+                </div>
+                <div class="form-group">
+                  <label class="form-label">سال تولد همسر</label>
+                  <input type="text" id="spouseBirthInput" class="form-control" placeholder="مثال: ۱۳۶۰">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">جنسیت همسر</label>
+                  <select id="spouseGenderInput" class="form-control">
+                    <option value="male">مرد (♂)</option>
+                    <option value="female">زن (♀)</option>
+                    <option value="unknown">نامشخص (?)</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">توضیحات همسر</label>
+                  <textarea id="spouseDescInput" class="form-control" placeholder="توضیحات اضافی درباره همسر..." rows="3"></textarea>
+                </div>
+              </div>
+              <div>
+                <div class="form-group">
+                  <label class="form-label">تصویر همسر</label>
+                  <div class="file-input-wrapper">
+                    <input type="file" id="spousePhotoInput" class="file-input" accept="image/*">
+                    <label for="spousePhotoInput" class="file-input-label">
+                      <i class="fas fa-camera"></i>
+                      <span id="spouseFileLabel">انتخاب تصویر همسر</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="preview-card">
+                  <img id="spousePreviewImage" class="preview-avatar" src="https://ui-avatars.com/api/?name=پیش‌نمایش&background=random&size=150" alt="پیش‌نمایش همسر">
+                  <div class="preview-name" id="spousePreviewName">پیش‌نمایش همسر</div>
+                  <div class="preview-info" id="spousePreviewInfo">اطلاعات نمایش داده می‌شود</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="text-align: center; margin-top: 20px;">
+            <button type="submit" class="btn btn-success btn-lg" id="submitButton">
+              <i class="fas fa-plus"></i>
+              <span id="submitText">افزودن فرد جدید</span>
+            </button>
+            <button type="button" class="btn btn-warning btn-lg" onclick="cancelEdit()" id="cancelButton" style="display: none; margin-right: 10px;">
+              <i class="fas fa-times"></i> لغو ویرایش
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- Manage Members -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-users-cog"></i>
+            مدیریت اعضا
+          </div>
+        </div>
+        <div class="form-grid">
+          <div>
+            <div class="form-group">
+              <label class="form-label">جستجو و انتخاب فرد</label>
+              <input type="text" id="searchMember" class="form-control" placeholder="جستجو بر اساس نام...">
+            </div>
+            <div class="form-group">
+              <select id="memberSelect" class="form-control" size="5">
+                <option value="">انتخاب فرد برای ویرایش یا حذف</option>
+              </select>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 15px;">
+            <button class="btn btn-warning" onclick="editMember()">
+              <i class="fas fa-edit"></i> ویرایش فرد انتخاب شده
+            </button>
+            <button class="btn btn-danger" onclick="deleteMember()">
+              <i class="fas fa-trash"></i> حذف فرد انتخاب شده
+            </button>
+            <hr>
+            <button class="btn btn-info" onclick="viewMemberDetails()">
+              <i class="fas fa-info-circle"></i> مشاهده جزئیات
+            </button>
+            <button class="btn btn-outline" onclick="refreshData()">
+              <i class="fas fa-sync"></i> بروزرسانی داده‌ها
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Add Event -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-calendar-plus"></i>
+            افزودن رویداد
+          </div>
+        </div>
+        <form id="eventForm" onsubmit="handleEventSubmit(event)">
+          <div class="form-grid">
+            <div>
+              <div class="form-group">
+                <label class="form-label">انتخاب فرد *</label>
+                <select id="eventPersonSelect" class="form-control" required>
+                  <option value="">انتخاب فرد برای افزودن رویداد</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">نوع رویداد *</label>
+                <select id="eventTypeSelect" class="form-control" required>
+                  <option value="birth">👶 تولد</option>
+                  <option value="wedding">💍 ازدواج</option>
+                  <option value="death">⚰️ فوت</option>
+                  <option value="graduation">🎓 فارغ‌التحصیلی</option>
+                  <option value="work">💼 شغل</option>
+                  <option value="travel">✈️ سفر</option>
+                  <option value="other">📝 سایر</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+                <label class="form-label">سال رویداد</label>
+                <input type="text" id="eventYearInput" class="form-control" placeholder="مثال: ۱۴۰۰">
+              </div>
+              <div class="form-group">
+                <label class="form-label">توضیحات رویداد *</label>
+                <textarea id="eventDescInput" class="form-control" placeholder="توضیح کامل رویداد..." rows="2" required></textarea>
+              </div>
+            </div>
+          </div>
+          <div style="text-align: center;">
+            <button type="submit" class="btn btn-success">
+              <i class="fas fa-plus"></i> افزودن رویداد
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- Family Members Table -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-table"></i>
+            فهرست اعضای خانواده
+          </div>
+          <div>
+            <button class="btn btn-sm btn-outline" onclick="exportToCSV()">
+              <i class="fas fa-file-csv"></i> خروجی CSV
+            </button>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="table" id="membersTable">
+            <thead>
+              <tr>
+                <th>شناسه</th>
+                <th>نام و همسر</th>
+                <th>سال تولد</th>
+                <th>جنسیت</th>
+                <th>والد</th>
+                <th>تعداد رویدادها</th>
+                <th>عملیات</th>
+              </tr>
+            </thead>
+            <tbody id="membersTableBody">
+              <!-- Table content will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Advanced Settings -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <i class="fas fa-cog"></i>
+            تنظیمات پیشرفته
+          </div>
+        </div>
+        <div class="form-grid">
+          <div>
+            <h5 style="margin-bottom: 15px; color: var(--primary-color);">
+              <i class="fas fa-database"></i> مدیریت داده‌ها
+            </h5>
+            <button class="btn btn-info" onclick="validateData()" style="width: 100%; margin-bottom: 10px;">
+              <i class="fas fa-check-circle"></i> بررسی یکپارچگی داده‌ها
+            </button>
+            <button class="btn btn-warning" onclick="repairData()" style="width: 100%; margin-bottom: 10px;">
+              <i class="fas fa-wrench"></i> تعمیر خودکار داده‌ها
+            </button>
+            <button class="btn btn-danger" onclick="resetAllData()" style="width: 100%;">
+              <i class="fas fa-bomb"></i> ریست کامل سیستم
+            </button>
+          </div>
+          <div>
+            <h5 style="margin-bottom: 15px; color: var(--primary-color);">
+              <i class="fas fa-chart-line"></i> آمار و گزارشات
+            </h5>
+            <button class="btn btn-info" onclick="generateReport()" style="width: 100%; margin-bottom: 10px;">
+              <i class="fas fa-chart-bar"></i> تولید گزارش کامل
+            </button>
+            <button class="btn btn-outline" onclick="showStatistics()" style="width: 100%; margin-bottom: 10px;">
+              <i class="fas fa-analytics"></i> نمایش آمار تفصیلی
+            </button>
+            <button class="btn btn-success" onclick="exportAdvanced()" style="width: 100%;">
+              <i class="fas fa-file-export"></i> خروجی پیشرفته
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ========== EVENT MODAL ========== -->
+  <!-- Event Management Modal -->
+  <div id="eventModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+    <div class="card" style="width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; position: relative; animation: slideUp 0.3s ease-out;">
+      <div class="card-header">
+        <div class="card-title">
+          <i class="fas fa-list"></i>
+          <span id="modalTitle">مدیریت رویدادها</span>
+        </div>
+        <button class="btn btn-sm btn-outline" onclick="closeEventModal()">
+          <i class="fas fa-times"></i> بستن
+        </button>
+      </div>
+      <div id="eventListContainer" style="padding: 20px;">
+        <!-- Event list will be populated here -->
+      </div>
+      <div style="padding: 20px; border-top: 1px solid var(--border-color);">
+        <button class="btn btn-success" onclick="addNewEventInModal()">
+          <i class="fas fa-plus"></i> افزودن رویداد جدید
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Hidden file input for import -->
+  <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="handleImportFile(event)">
+<script>
+// ===============================
+// Configuration & Global Variables  
+// ===============================
+const ADMIN_PASSWORD = "admin123"; // Change this to your desired password
+let familyData = [];
+let isEditMode = false;
+let editingId = null;
+let currentTheme = localStorage.getItem('theme') || 'light';
+// ===============================
+// Initialization
+// ===============================
+document.addEventListener('DOMContentLoaded', function() {
+  // Apply saved theme
+  document.body.setAttribute('data-theme', currentTheme);
+  updateThemeIcon();
+  // Setup event listeners
+  setupEventListeners();
+});
+function setupEventListeners() {
+  // Preview updates for spouse
+document.getElementById('spouseNameInput').addEventListener('input', updateSpousePreview);
+document.getElementById('spouseGenderInput').addEventListener('change', updateSpousePreview); // <-- این خط جدید است
+document.getElementById('spouseBirthInput').addEventListener('input', updateSpousePreview);
+document.getElementById('spouseDescInput').addEventListener('input', updateSpousePreview);
+    // Preview updates for main person
+  document.getElementById('nameInput').addEventListener('input', updatePreview);
+  document.getElementById('genderInput').addEventListener('change', updatePreview);
+  document.getElementById('birthInput').addEventListener('input', updatePreview);
+  document.getElementById('descInput').addEventListener('input', updatePreview);
+  // Photo upload for main person
+  document.getElementById('photoInput').addEventListener('change', handlePhotoUpload);
+  // Photo upload for spouse
+  document.getElementById('spousePhotoInput').addEventListener('change', handleSpousePhotoUpload);
+  // Toggle spouse section
+  document.getElementById('hasSpouseCheckbox').addEventListener('change', toggleSpouseSection);
+  // Search functionality
+  document.getElementById('searchMember').addEventListener('input', handleMemberSearch);
+  // Member selection
+  document.getElementById('memberSelect').addEventListener('change', function() {
+    const selectedId = this.value;
+    if (selectedId) {
+      const member = familyData.find(m => m.id == selectedId);
+      if (member) {
+        showMemberInfo(member);
+      }
+    }
+  });
+}
+// ===============================
+// Authentication
+// ===============================
+function checkPassword() {
+  const password = document.getElementById('passwordInput').value;
+  const loginError = document.getElementById('loginError');
+  if (password === ADMIN_PASSWORD) {
+    document.getElementById('loginSection').style.display = 'none';
+    document.getElementById('adminPanel').style.display = 'block';
+    document.getElementById('adminPanel').classList.add('fade-in');
+    // Initialize admin panel
+    loadFamilyData();
+    refreshAllSelectors();
+    updateStats();
+    renderMembersTable();
+  } else {
+    loginError.style.display = 'block';
+    document.getElementById('passwordInput').value = '';
+    document.getElementById('passwordInput').focus();
+  }
+}
+function handleEnterKey(event) {
+  if (event.key === 'Enter') {
+    checkPassword();
+  }
+}
+// ===============================
+// Data Management
+// ===============================
+function loadFamilyData() {
+  const stored = localStorage.getItem('familyData');
+  if (stored) {
+    try {
+      familyData = JSON.parse(stored);
+    } catch (e) {
+      console.error('Error parsing stored ', e);
+      familyData = [];
+      showAlert('خطا در بارگذاری داده‌ها', 'danger');
+    }
+  } else {
+    familyData = [];
+  }
+}
+function saveFamilyData() {
+  try {
+    localStorage.setItem('familyData', JSON.stringify(familyData));
+    localStorage.setItem('familyDataTimestamp', Date.now().toString());
+    updateStats();
+    showAlert('داده‌ها با موفقیت ذخیره شدند', 'success');
+  } catch (e) {
+    console.error('Error saving ', e);
+    showAlert('خطا در ذخیره‌سازی داده‌ها', 'danger');
+  }
+}
+function refreshData() {
+  loadFamilyData();
+  refreshAllSelectors();
+  updateStats();
+  renderMembersTable();
+  showAlert('داده‌ها بروزرسانی شدند', 'success');
+}
+// ===============================
+// Form Handling
+// ===============================
+function handleSubmit(event) {
+  event.preventDefault();
+  const name = document.getElementById('nameInput').value.trim();
+  if (!name) {
+    showAlert('نام فرد اجباری است', 'danger');
+    return;
+  }
+  // Validate if it's the first person (root)
+  if (familyData.length === 0) {
+    if (document.getElementById('parentInput').value !== "") {
+      showAlert('اولین فرد باید ریشه خانواده باشد!', 'danger');
+      return;
+    }
+  }
+  // If has spouse, validate spouse fields
+  const hasSpouse = document.getElementById('hasSpouseCheckbox').checked;
+  if (hasSpouse) {
+    const spouseName = document.getElementById('spouseNameInput').value.trim();
+    if (!spouseName) {
+      showAlert('نام همسر اجباری است', 'danger');
+      return;
+    }
+  }
+  if (isEditMode) {
+    updatePerson();
+  } else {
+    addPerson();
+  }
+}
+function addPerson() {
+  const newId = Math.max(...familyData.map(p => p.id || 0), 0) + 1;
+  const hasSpouse = document.getElementById('hasSpouseCheckbox').checked;
+  // Create main person object
+  const person = {
+    id: newId,
+    name: document.getElementById('nameInput').value.trim(),
+    birth: document.getElementById('birthInput').value.trim(),
+    gender: document.getElementById('genderInput').value,
+    desc: document.getElementById('descInput').value.trim(),
+    parentId: familyData.length > 0 ? parseInt(document.getElementById('parentInput').value) : null, // Only set parent if not root
+    photo: document.getElementById('previewImage').src,
+    events: [],
+    spouseId: null // Will be set after spouse is created
+  };
+  // If has spouse, create spouse object
+  if (hasSpouse) {
+    const spouseId = newId + 1; // Assign next ID to spouse
+    const spouse = {
+      id: spouseId,
+      name: document.getElementById('spouseNameInput').value.trim(),
+      birth: document.getElementById('spouseBirthInput').value.trim(),
+      gender: document.getElementById('spouseGenderInput').value,
+      desc: document.getElementById('spouseDescInput').value.trim(),
+      parentId: null, // Spouse doesn't have a separate parent in this context
+      photo: document.getElementById('spousePreviewImage').src,
+      events: [],
+      spouseId: newId // Point back to main person
+    };
+    // Set spouseId for main person
+    person.spouseId = spouseId;
+    // Add both to familyData
+    familyData.push(person);
+    familyData.push(spouse);
+  } else {
+    // Add only main person
+    familyData.push(person);
+  }
+  saveFamilyData();
+  resetForm();
+  refreshAllSelectors();
+  renderMembersTable();
+  showAlert(`${person.name} ${hasSpouse ? 'و همسرش با موفقیت اضافه شدند' : 'با موفقیت اضافه شد'}`, 'success');
+}
+// ========== تابع updatePerson اصلاح شده ==========
+// ========== تابع updatePerson اصلاح شده ==========
+function updatePerson() {
+  const index = familyData.findIndex(p => p.id === editingId);
+  if (index === -1) {
+    showAlert('فرد مورد نظر یافت نشد', 'danger');
+    return;
+  }
+  // به‌روزرسانی اطلاعات فرد اصلی
+  const person = familyData[index];
+  person.name = document.getElementById('nameInput').value.trim();
+  person.birth = document.getElementById('birthInput').value.trim();
+  person.gender = document.getElementById('genderInput').value;
+  person.desc = document.getElementById('descInput').value.trim();
+  person.parentId = familyData.length > 1 ? parseInt(document.getElementById('parentInput').value) : null;
+  person.photo = document.getElementById('previewImage').src;
+  // مدیریت همسر
+  const hasSpouse = document.getElementById('hasSpouseCheckbox').checked;
+  if (hasSpouse) {
+    const spouseName = document.getElementById('spouseNameInput').value.trim();
+    if (!spouseName) {
+      showAlert('نام همسر اجباری است', 'danger');
+      return;
+    }
+    // اگر فرد قبلاً همسر نداشته، همسر جدید ایجاد کن
+    if (!person.spouseId) {
+      const newSpouseId = Math.max(...familyData.map(p => p.id || 0), 0) + 1;
+      const newSpouse = {
+        id: newSpouseId,
+        name: spouseName,
+        birth: document.getElementById('spouseBirthInput').value.trim(),
+        gender: document.getElementById('spouseGenderInput').value,
+        desc: document.getElementById('spouseDescInput').value.trim(),
+        parentId: null,
+        photo: document.getElementById('spousePreviewImage').src,
+        events: [],
+        spouseId: editingId // همسر به فرد اصلی اشاره می‌کند
+      };
+      person.spouseId = newSpouseId; // فرد اصلی به همسر اشاره می‌کند
+      familyData.push(newSpouse);
+    } else {
+      // اگر همسر قبلاً وجود داشته، اطلاعاتش را به‌روز کن
+      const spouseIndex = familyData.findIndex(p => p.id === person.spouseId);
+      if (spouseIndex !== -1) {
+        const spouse = familyData[spouseIndex];
+        spouse.name = spouseName;
+        spouse.birth = document.getElementById('spouseBirthInput').value.trim();
+        spouse.gender = document.getElementById('spouseGenderInput').value;
+        spouse.desc = document.getElementById('spouseDescInput').value.trim();
+        spouse.photo = document.getElementById('spousePreviewImage').src;
+        // spouseId همسر قبلاً تنظیم شده و نیازی به تغییر نیست
+      }
+    }
+  } else {
+    // اگر کاربر گزینه "همسر دارد" را برداشته، همسر قبلی را حذف کن
+    if (person.spouseId) {
+      familyData = familyData.filter(p => p.id !== person.spouseId);
+      person.spouseId = null;
+    }
+  }
+  saveFamilyData();
+  // ========== خط مهم: فراخوانی cancelEdit برای بازگشت به حالت اولیه ==========
+  cancelEdit();
+  showAlert(`اطلاعات ${person.name} با موفقیت بروزرسانی شد`, 'success');
+}
+// ========== تابع cancelEdit اصلاح شده ==========
+function cancelEdit() {
+  isEditMode = false;
+  editingId = null;
+  // ========== اصلاح: بررسی وجود المنت قبل از تغییر آن ==========
+  const formTitleEl = document.getElementById('formTitle');
+  const submitTextEl = document.getElementById('submitText');
+  const submitButtonEl = document.getElementById('submitButton');
+  const cancelButtonEl = document.getElementById('cancelButton');
+  if (formTitleEl) formTitleEl.textContent = 'افزودن فرد جدید';
+  if (submitTextEl) submitTextEl.textContent = 'افزودن فرد جدید';
+  if (submitButtonEl) submitButtonEl.innerHTML = '<i class="fas fa-plus"></i> <span>افزودن فرد جدید</span>';
+  if (cancelButtonEl) cancelButtonEl.style.display = 'none';
+  // پاک کردن کامل فرم و پیش‌نمایش‌ها
+  resetForm();
+  // بروزرسانی لیست‌های انتخابی و جدول برای اطمینان از نمایش داده‌های به‌روز
+  refreshAllSelectors();
+  renderMembersTable();
+}
+function resetForm() {
+  document.getElementById('personForm').reset();
+  // Reset main person preview
+  document.getElementById('previewImage').src = 'https://ui-avatars.com/api/?name=پیش‌نمایش&background=random&size=150';
+  document.getElementById('previewName').textContent = 'پیش‌نمایش فرد';
+  document.getElementById('previewInfo').textContent = 'اطلاعات نمایش داده می‌شود';
+  document.getElementById('fileLabel').textContent = 'انتخاب تصویر';
+  document.getElementById('photoInput').value = '';
+  document.querySelector('.file-input-label').classList.remove('has-file');
+  // Reset spouse preview
+  document.getElementById('spousePreviewImage').src = 'https://ui-avatars.com/api/?name=پیش‌نمایش&background=random&size=150';
+  document.getElementById('spousePreviewName').textContent = 'پیش‌نمایش همسر';
+  document.getElementById('spousePreviewInfo').textContent = 'اطلاعات نمایش داده می‌شود';
+  document.getElementById('spouseFileLabel').textContent = 'انتخاب تصویر همسر';
+  document.getElementById('spousePhotoInput').value = '';
+  document.querySelector('[for="spousePhotoInput"]').classList.remove('has-file');
+  // Reset spouse section
+  document.getElementById('spouseSection').classList.remove('active');
+  document.getElementById('hasSpouseCheckbox').checked = false;
+  // If no family members exist, disable parent selector
+  if (familyData.length === 0) {
+    document.getElementById('parentInput').disabled = true;
+  }
+}
+// ===============================
+// Preview Functions
+// ===============================
+function updatePreview() {
+  const name = document.getElementById('nameInput').value.trim() || 'پیش‌نمایش فرد';
+  const birth = document.getElementById('birthInput').value.trim();
+  const gender = document.getElementById('genderInput').value;
+  const desc = document.getElementById('descInput').value.trim();
+  document.getElementById('previewName').textContent = name;
+  const genderText = gender === 'male' ? 'مرد (♂)' : gender === 'female' ? 'زن (♀)' : 'نامشخص (?)';
+  const birthText = birth ? `متولد ${birth}` : '';
+  const descText = desc ? ` • ${desc}` : '';
+  document.getElementById('previewInfo').textContent = `${genderText}${birthText ? ' • ' + birthText : ''}${descText}`;
+  // Update preview image if no custom image is selected
+  if (!document.getElementById('photoInput').files[0]) {
+    document.getElementById('previewImage').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&size=150`;
+  }
+}
+function handlePhotoUpload(event) {
+  const file = event.target.files[0];
+  const fileLabel = document.getElementById('fileLabel');
+  const fileLabelElement = document.querySelector('.file-input-label');
+  if (file) {
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      showAlert('حجم فایل نباید بیشتر از ۵ مگابایت باشد', 'danger');
+      event.target.value = '';
+      return;
+    }
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      showAlert('فقط فایل‌های تصویری مجاز هستند', 'danger');
+      event.target.value = '';
+      return;
+    }
+    // ========== اضافه شده: نمایش وضعیت در حال بارگذاری ==========
+    fileLabel.textContent = 'در حال بارگذاری...';
+    fileLabelElement.style.opacity = '0.7';
+    fileLabelElement.style.pointerEvents = 'none'; // جلوگیری از کلیک مجدد
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('previewImage').src = e.target.result;
+      fileLabel.textContent = file.name;
+      fileLabelElement.classList.add('has-file');
+      // ========== اضافه شده: بازگرداندن حالت عادی ==========
+      fileLabelElement.style.opacity = '1';
+      fileLabelElement.style.pointerEvents = 'auto';
+    };
+    reader.onerror = function() {
+      showAlert('خطا در خواندن فایل', 'danger');
+      // ========== اضافه شده: بازگرداندن حالت عادی در صورت خطا ==========
+      fileLabelElement.style.opacity = '1';
+      fileLabelElement.style.pointerEvents = 'auto';
+      fileLabel.textContent = 'انتخاب تصویر';
+      event.target.value = '';
+    };
+    reader.readAsDataURL(file);
+  } else {
+    fileLabel.textContent = 'انتخاب تصویر';
+    fileLabelElement.classList.remove('has-file');
+    updatePreview(); // Reset to default avatar
+  }
+}
+function handleSpousePhotoUpload(event) {
+  const file = event.target.files[0];
+  const fileLabel = document.getElementById('spouseFileLabel');
+  const fileLabelElement = document.querySelector('[for="spousePhotoInput"]');
+  if (file) {
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      showAlert('حجم فایل نباید بیشتر از ۵ مگابایت باشد', 'danger');
+      event.target.value = '';
+      return;
+    }
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      showAlert('فقط فایل‌های تصویری مجاز هستند', 'danger');
+      event.target.value = '';
+      return;
+    }
+    // ========== اضافه شده: نمایش وضعیت در حال بارگذاری ==========
+    fileLabel.textContent = 'در حال بارگذاری...';
+    fileLabelElement.style.opacity = '0.7';
+    fileLabelElement.style.pointerEvents = 'none';
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('spousePreviewImage').src = e.target.result;
+      fileLabel.textContent = file.name;
+      fileLabelElement.classList.add('has-file');
+      // ========== اضافه شده: بازگرداندن حالت عادی ==========
+      fileLabelElement.style.opacity = '1';
+      fileLabelElement.style.pointerEvents = 'auto';
+    };
+    reader.onerror = function() {
+      showAlert('خطا در خواندن فایل', 'danger');
+      // ========== اضافه شده: بازگرداندن حالت عادی در صورت خطا ==========
+      fileLabelElement.style.opacity = '1';
+      fileLabelElement.style.pointerEvents = 'auto';
+      fileLabel.textContent = 'انتخاب تصویر همسر';
+      event.target.value = '';
+    };
+    reader.readAsDataURL(file);
+  } else {
+    fileLabel.textContent = 'انتخاب تصویر همسر';
+    fileLabelElement.classList.remove('has-file');
+    updateSpousePreview(); // Reset to default avatar
+  }
+}
+function updateSpousePreview() {
+  const name = document.getElementById('spouseNameInput').value.trim() || 'پیش‌نمایش همسر';
+  const birth = document.getElementById('spouseBirthInput').value.trim();
+  const gender = document.getElementById('spouseGenderInput').value;
+  const desc = document.getElementById('spouseDescInput').value.trim();
+  document.getElementById('spousePreviewName').textContent = name;
+  const genderText = gender === 'male' ? 'مرد (♂)' : gender === 'female' ? 'زن (♀)' : 'نامشخص (?)';
+  const birthText = birth ? `متولد ${birth}` : '';
+  const descText = desc ? ` • ${desc}` : '';
+  document.getElementById('spousePreviewInfo').textContent = `${genderText}${birthText ? ' • ' + birthText : ''}${descText}`;
+  // Update preview image if no custom image is selected
+  if (!document.getElementById('spousePhotoInput').files[0]) {
+    document.getElementById('spousePreviewImage').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random&size=150`;
+  }
+}
+function toggleSpouseSection() {
+  const spouseSection = document.getElementById('spouseSection');
+  if (this.checked) {
+    spouseSection.classList.add('active');
+    // Initialize spouse preview
+    updateSpousePreview();
+  } else {
+    spouseSection.classList.remove('active');
+  }
+}
+// ===============================
+// Member Management
+// ===============================
+function refreshAllSelectors() {
+  const selectors = [
+    'parentInput',
+    'memberSelect',
+    'eventPersonSelect'
+  ];
+  selectors.forEach(selectorId => {
+    const selector = document.getElementById(selectorId);
+    const currentValue = selector.value;
+    // Clear options
+    selector.innerHTML = '';
+    // Add default option for parentInput
+    if (selectorId === 'parentInput') {
+      if (familyData.length === 0) {
+        selector.innerHTML = '<option value="">ریشه خانواده</option>';
+        selector.disabled = true;
+      } else {
+        selector.innerHTML = '<option value="">انتخاب والد از ریشه</option>';
+        selector.disabled = false;
+      }
+    } else if (selectorId === 'memberSelect') {
+      selector.innerHTML = '<option value="">انتخاب فرد برای ویرایش یا حذف</option>';
+    } else {
+      selector.innerHTML = '<option value="">انتخاب فرد برای افزودن رویداد</option>';
+    }
+    // Add family members
+    familyData.forEach(person => {
+      // Skip current person in spouse selector during edit (not applicable here)
+      const option = document.createElement('option');
+      option.value = person.id;
+      option.textContent = `${person.name} (${person.birth || 'نامشخص'})`;
+      selector.appendChild(option);
+    });
+    // Restore previous value if still valid
+    if (currentValue && Array.from(selector.options).some(opt => opt.value === currentValue)) {
+      selector.value = currentValue;
+    }
+  });
+}
+function handleMemberSearch() {
+  const searchTerm = document.getElementById('searchMember').value.toLowerCase();
+  const memberSelect = document.getElementById('memberSelect');
+  Array.from(memberSelect.options).forEach(option => {
+    if (option.value === '') return; // Skip default option
+    const shouldShow = option.textContent.toLowerCase().includes(searchTerm);
+    option.style.display = shouldShow ? 'block' : 'none';
+  });
+}
+function showMemberInfo(member) {
+  document.getElementById('previewName').textContent = member.name;
+  const genderText = member.gender === 'male' ? 'مرد (♂)' : member.gender === 'female' ? 'زن (♀)' : 'نامشخص (?)';
+  const birthText = member.birth ? `متولد ${member.birth}` : '';
+  const descText = member.desc ? ` • ${member.desc}` : '';
+  document.getElementById('previewInfo').textContent = `${genderText}${birthText ? ' • ' + birthText : ''}${descText}`;
+  document.getElementById('previewImage').src = member.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&background=random&size=150`;
+}
+function editMember() {
+  const selectedId = document.getElementById('memberSelect').value;
+  if (!selectedId) {
+    showAlert('لطفاً فردی را انتخاب کنید', 'warning');
+    return;
+  }
+  const member = familyData.find(m => m.id == selectedId);
+  if (!member) {
+    showAlert('فرد مورد نظر یافت نشد', 'danger');
+    return;
+  }
+  // Switch to edit mode
+  isEditMode = true;
+  editingId = member.id;
+  // Update form title and buttons
+  document.getElementById('formTitle').textContent = `ویرایش ${member.name}`;
+  document.getElementById('submitText').textContent = 'به‌روزرسانی اطلاعات';
+  document.getElementById('submitButton').innerHTML = '<i class="fas fa-save"></i> <span>به‌روزرسانی اطلاعات</span>';
+  document.getElementById('cancelButton').style.display = 'inline-flex';
+  // Fill form with member data
+  document.getElementById('nameInput').value = member.name;
+  document.getElementById('birthInput').value = member.birth || '';
+  document.getElementById('genderInput').value = member.gender || 'unknown';
+  document.getElementById('descInput').value = member.desc || '';
+  document.getElementById('parentInput').value = member.parentId || '';
+  document.getElementById('previewImage').src = member.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&background=random&size=150`;
+  // Handle spouse data
+  if (member.spouseId) {
+    document.getElementById('hasSpouseCheckbox').checked = true;
+    document.getElementById('spouseSection').classList.add('active');
+    const spouse = familyData.find(p => p.id == member.spouseId);
+    if (spouse) {
+      document.getElementById('spouseNameInput').value = spouse.name;
+      document.getElementById('spouseBirthInput').value = spouse.birth || '';
+      document.getElementById('spouseGenderInput').value = spouse.gender || 'unknown';
+      document.getElementById('spouseDescInput').value = spouse.desc || '';
+      document.getElementById('spousePreviewImage').src = spouse.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(spouse.name)}&background=random&size=150`;
+      updateSpousePreview();
+    }
+  } else {
+    document.getElementById('hasSpouseCheckbox').checked = false;
+    document.getElementById('spouseSection').classList.remove('active');
+  }
+  updatePreview();
+}
+function deleteMember() {
+  const selectedId = document.getElementById('memberSelect').value;
+  if (!selectedId) {
+    showAlert('لطفاً فردی را انتخاب کنید', 'warning');
+    return;
+  }
+  const member = familyData.find(m => m.id == selectedId);
+  if (!member) {
+    showAlert('فرد مورد نظر یافت نشد', 'danger');
+    return;
+  }
+  if (!confirm(`⚠️ آیا مطمئنید می‌خواهید "${member.name}" را حذف کنید؟
+این عمل غیرقابل بازگشت است!`)) {
+    return;
+  }
+  // Also delete spouse if exists
+  if (member.spouseId) {
+    familyData = familyData.filter(p => p.id !== member.spouseId);
+  }
+  familyData = familyData.filter(p => p.id != selectedId);
+  saveFamilyData();
+  refreshAllSelectors();
+  renderMembersTable();
+  showAlert(`${member.name} با موفقیت حذف شد`, 'success');
+}
+function viewMemberDetails() {
+  const selectedId = document.getElementById('memberSelect').value;
+  if (!selectedId) {
+    showAlert('لطفاً فردی را انتخاب کنید', 'warning');
+    return;
+  }
+  const member = familyData.find(m => m.id == selectedId);
+  if (!member) {
+    showAlert('فرد مورد نظر یافت نشد', 'danger');
+    return;
+  }
+  let details = `نام: ${member.name}
+`;
+  details += `شناسه: ${member.id}
+`;
+  details += `سال تولد: ${member.birth || '---'}
+`;
+  details += `جنسیت: ${member.gender === 'male' ? 'مرد' : member.gender === 'female' ? 'زن' : 'نامشخص'}
+`;
+  details += `توضیحات: ${member.desc || '---'}
+`;
+  details += `تعداد رویدادها: ${member.events?.length || 0}
+`;
+  if (member.parentId) {
+    const parent = familyData.find(p => p.id == member.parentId);
+    details += `والد: ${parent ? parent.name : '---'}
+`;
+  }
+  if (member.spouseId) {
+    const spouse = familyData.find(p => p.id == member.spouseId);
+    details += `همسر: ${spouse ? spouse.name : '---'}
+`;
+  }
+  alert(`جزئیات ${member.name}:
+${details}`);
+}
+// ===============================
+// Event Management
+// ===============================
+function handleEventSubmit(event) {
+  event.preventDefault();
+  const personId = document.getElementById('eventPersonSelect').value;
+  if (!personId) {
+    showAlert('لطفاً فردی را انتخاب کنید', 'danger');
+    return;
+  }
+  const eventType = document.getElementById('eventTypeSelect').value;
+  const eventYear = document.getElementById('eventYearInput').value.trim();
+  const eventDesc = document.getElementById('eventDescInput').value.trim();
+  if (!eventDesc) {
+    showAlert('توضیحات رویداد اجباری است', 'danger');
+    return;
+  }
+  const personIndex = familyData.findIndex(p => p.id == personId);
+  if (personIndex === -1) {
+    showAlert('فرد مورد نظر یافت نشد', 'danger');
+    return;
+  }
+  if (!familyData[personIndex].events) {
+    familyData[personIndex].events = [];
+  }
+  familyData[personIndex].events.push({
+    type: eventType,
+    year: eventYear,
+    description: eventDesc
+  });
+  saveFamilyData();
+  document.getElementById('eventForm').reset();
+  showAlert('رویداد با موفقیت اضافه شد', 'success');
+}
+// ===============================
+// Event Modal Management
+// ===============================
+let currentPersonIdForModal = null;
+function openEventModal(personId) {
+  currentPersonIdForModal = personId;
+  const person = familyData.find(p => p.id == personId);
+  if (!person) {
+    showAlert('فرد مورد نظر یافت نشد', 'danger');
+    return;
+  }
+  document.getElementById('modalTitle').textContent = `رویدادهای ${person.name}`;
+  renderEventList();
+  document.getElementById('eventModal').style.display = 'flex';
+}
+function closeEventModal() {
+  document.getElementById('eventModal').style.display = 'none';
+  currentPersonIdForModal = null;
+}
+function renderEventList() {
+  const container = document.getElementById('eventListContainer');
+  const person = familyData.find(p => p.id == currentPersonIdForModal);
+  if (!person || !person.events || person.events.length === 0) {
+    container.innerHTML = '<p style="text-align: center; padding: 20px; color: var(--text-color); opacity: 0.7;">هیچ رویدادی برای این فرد ثبت نشده است.</p>';
+    return;
+  }
+  let html = '';
+  person.events.forEach((event, index) => {
+    html += `
+      <div style="background: var(--card-color); border: 1px solid var(--border-color); border-radius: 10px; padding: 15px; margin-bottom: 15px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px;">
+          <strong style="color: var(--primary-color);">${getEventTypeLabel(event.type)} ${event.year ? '(' + event.year + ')' : ''}</strong>
+          <div>
+            <button class="btn btn-sm btn-warning" onclick="editEvent(${index})" style="margin-left: 5px;">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-danger" onclick="deleteEvent(${index})">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+        <div style="color: var(--text-color);">${event.description}</div>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+function addNewEventInModal() {
+  const eventFormHtml = `
+    <div id="newEventFormContainer" style="background: var(--card-color); border: 1px solid var(--border-color); border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+      <h4 style="margin-bottom: 15px; color: var(--primary-color);">افزودن رویداد جدید</h4>
+      <div class="form-grid">
+        <div>
+          <div class="form-group">
+            <label class="form-label">نوع رویداد *</label>
+            <select id="modalEventTypeSelect" class="form-control" required>
+              <option value="birth">👶 تولد</option>
+              <option value="wedding">💍 ازدواج</option>
+              <option value="death">⚰️ فوت</option>
+              <option value="graduation">🎓 فارغ‌التحصیلی</option>
+              <option value="work">💼 شغل</option>
+              <option value="travel">✈️ سفر</option>
+              <option value="other">📝 سایر</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="form-label">سال رویداد</label>
+            <input type="text" id="modalEventYearInput" class="form-control" placeholder="مثال: ۱۴۰۰">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">توضیحات رویداد *</label>
+        <textarea id="modalEventDescInput" class="form-control" placeholder="توضیح کامل رویداد..." rows="3" required></textarea>
+      </div>
+      <div style="text-align: right; margin-top: 15px;">
+        <button class="btn btn-success" onclick="saveNewEvent()">
+          <i class="fas fa-plus"></i> ذخیره رویداد
+        </button>
+        <button class="btn btn-outline" onclick="cancelNewEvent()" style="margin-right: 10px;">
+          <i class="fas fa-times"></i> لغو
+        </button>
+      </div>
+    </div>
+  `;
+  const container = document.getElementById('eventListContainer');
+  container.insertAdjacentHTML('afterbegin', eventFormHtml);
+  // Hide the "Add New Event" button
+  document.querySelector('button[onclick="addNewEventInModal()"]').style.display = 'none';
+}
+function cancelNewEvent() {
+  const formContainer = document.getElementById('newEventFormContainer');
+  if (formContainer) {
+    formContainer.remove();
+  }
+  // Show the "Add New Event" button again
+  document.querySelector('button[onclick="addNewEventInModal()"]').style.display = 'inline-flex';
+}
+function saveNewEvent() {
+  const eventType = document.getElementById('modalEventTypeSelect').value;
+  const eventYear = document.getElementById('modalEventYearInput').value.trim();
+  const eventDesc = document.getElementById('modalEventDescInput').value.trim();
+  if (!eventDesc) {
+    showAlert('توضیحات رویداد اجباری است', 'danger');
+    return;
+  }
+  const personIndex = familyData.findIndex(p => p.id == currentPersonIdForModal);
+  if (personIndex === -1) {
+    showAlert('فرد مورد نظر یافت نشد', 'danger');
+    return;
+  }
+  if (!familyData[personIndex].events) {
+    familyData[personIndex].events = [];
+  }
+  familyData[personIndex].events.push({
+    type: eventType,
+    year: eventYear,
+    description: eventDesc
+  });
+  saveFamilyData();
+  cancelNewEvent(); // Close the form
+  renderEventList(); // Refresh the list
+  renderMembersTable();
+  showAlert('رویداد جدید با موفقیت اضافه شد', 'success');
+}
+function editEvent(index) {
+  const person = familyData.find(p => p.id == currentPersonIdForModal);
+  const event = person.events[index];
+  const editFormHtml = `
+    <div id="editEventFormContainer" style="background: var(--card-color); border: 1px solid var(--border-color); border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+      <h4 style="margin-bottom: 15px; color: var(--primary-color);">ویرایش رویداد</h4>
+      <div class="form-grid">
+        <div>
+          <div class="form-group">
+            <label class="form-label">نوع رویداد *</label>
+            <select id="editEventTypeSelect" class="form-control" required>
+              <option value="birth" ${event.type === 'birth' ? 'selected' : ''}>👶 تولد</option>
+              <option value="wedding" ${event.type === 'wedding' ? 'selected' : ''}>💍 ازدواج</option>
+              <option value="death" ${event.type === 'death' ? 'selected' : ''}>⚰️ فوت</option>
+              <option value="graduation" ${event.type === 'graduation' ? 'selected' : ''}>🎓 فارغ‌التحصیلی</option>
+              <option value="work" ${event.type === 'work' ? 'selected' : ''}>💼 شغل</option>
+              <option value="travel" ${event.type === 'travel' ? 'selected' : ''}>✈️ سفر</option>
+              <option value="other" ${event.type === 'other' ? 'selected' : ''}>📝 سایر</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <div class="form-group">
+            <label class="form-label">سال رویداد</label>
+            <input type="text" id="editEventYearInput" class="form-control" placeholder="مثال: ۱۴۰۰" value="${event.year || ''}">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">توضیحات رویداد *</label>
+        <textarea id="editEventDescInput" class="form-control" placeholder="توضیح کامل رویداد..." rows="3" required>${event.description}</textarea>
+      </div>
+      <div style="text-align: right; margin-top: 15px;">
+        <button class="btn btn-success" onclick="saveEditedEvent(${index})">
+          <i class="fas fa-save"></i> به‌روزرسانی
+        </button>
+        <button class="btn btn-outline" onclick="cancelEditEvent()" style="margin-right: 10px;">
+          <i class="fas fa-times"></i> لغو
+        </button>
+      </div>
+    </div>
+  `;
+  // Find the event div to replace
+  const eventDivs = document.querySelectorAll('#eventListContainer > div');
+  if (eventDivs[index]) {
+    eventDivs[index].insertAdjacentHTML('beforebegin', editFormHtml);
+    eventDivs[index].style.display = 'none'; // Hide the original event div
+  }
+}
+function cancelEditEvent() {
+  const formContainer = document.getElementById('editEventFormContainer');
+  if (formContainer) {
+    formContainer.remove();
+  }
+  // Show the original event div
+  const hiddenDivs = document.querySelectorAll('#eventListContainer > div[style*="display: none"]');
+  if (hiddenDivs.length > 0) {
+    hiddenDivs[hiddenDivs.length - 1].style.display = 'block';
+  }
+}
+function saveEditedEvent(index) {
+  const eventType = document.getElementById('editEventTypeSelect').value;
+  const eventYear = document.getElementById('editEventYearInput').value.trim();
+  const eventDesc = document.getElementById('editEventDescInput').value.trim();
+  if (!eventDesc) {
+    showAlert('توضیحات رویداد اجباری است', 'danger');
+    return;
+  }
+  const personIndex = familyData.findIndex(p => p.id == currentPersonIdForModal);
+  if (personIndex === -1) {
+    showAlert('فرد مورد نظر یافت نشد', 'danger');
+    return;
+  }
+  familyData[personIndex].events[index] = {
+    type: eventType,
+    year: eventYear,
+    description: eventDesc
+  };
+  saveFamilyData();
+  cancelEditEvent(); // Close the form
+  renderEventList(); // Refresh the list
+  renderMembersTable();
+  showAlert('رویداد با موفقیت به‌روزرسانی شد', 'success');
+}
+function deleteEvent(index) {
+  if (!confirm('آیا مطمئنید می‌خواهید این رویداد را حذف کنید؟')) {
+    return;
+  }
+  const personIndex = familyData.findIndex(p => p.id == currentPersonIdForModal);
+  if (personIndex === -1) {
+    showAlert('فرد مورد نظر یافت نشد', 'danger');
+    return;
+  }
+  familyData[personIndex].events.splice(index, 1);
+  saveFamilyData();
+  renderEventList();
+  renderMembersTable();
+  showAlert('رویداد با موفقیت حذف شد', 'success');
+}
+// ===============================
+// Stats & Reporting
+// ===============================
+function updateStats() {
+  const total = familyData.length;
+  const males = familyData.filter(p => p.gender === 'male').length;
+  const females = familyData.filter(p => p.gender === 'female').length;
+  const timestamp = localStorage.getItem('familyDataTimestamp');
+  const lastUpdate = timestamp ? new Date(parseInt(timestamp)).toLocaleString('fa-IR') : '---';
+  document.getElementById('totalMembers').textContent = total;
+  document.getElementById('totalMales').textContent = males;
+  document.getElementById('totalFemales').textContent = females;
+  document.getElementById('lastUpdate').textContent = lastUpdate;
+}
+function renderMembersTable() {
+  const tbody = document.getElementById('membersTableBody');
+  tbody.innerHTML = '';
+  if (familyData.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:20px;">هیچ عضوی وجود ندارد</td></tr>`;
+    return;
+  }
+  // Group members by generation
+  const generations = {};
+  familyData.forEach(person => {
+    const gen = calculateGeneration(person.id);
+    if (!generations[gen]) {
+      generations[gen] = [];
+    }
+    generations[gen].push(person);
+  });
+  // Render each generation
+  Object.keys(generations).sort((a, b) => a - b).forEach(gen => {
+    // Add generation header row
+    const genRow = document.createElement('tr');
+    genRow.innerHTML = `<td colspan="7" class="generation-header">نسل ${parseInt(gen) + 1}</td>`;
+    tbody.appendChild(genRow);
+    // Add members for this generation
+    generations[gen].forEach(person => {
+      // Skip if this person is already rendered as a spouse
+      if (person.spouseId && person.id > person.spouseId) {
+        return;
+      }
+      const parent = person.parentId ? (familyData.find(p => p.id == person.parentId)?.name || '---') : '---';
+      const eventsCount = person.events?.length || 0;
+      // Create display name (include spouse if exists)
+      let displayName = person.name;
+      if (person.spouseId) {
+        const spouse = familyData.find(p => p.id == person.spouseId);
+        if (spouse) {
+          displayName += ` & ${spouse.name}`;
+        }
+      }
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${person.id}</td>
+        <td>${displayName}</td>
+        <td>${person.birth || '---'}</td>
+        <td>${person.gender === 'male' ? 'مرد' : person.gender === 'female' ? 'زن' : 'نامشخص'}</td>
+        <td>${parent}</td>
+        <td>${eventsCount}</td>
+        <td>
+          <button class="btn btn-sm btn-info" onclick="openEventModal(${person.id})">
+            <i class="fas fa-list"></i> مدیریت رویدادها
+          </button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+  });
+}
+function showMemberEvents(personId) {
+  const person = familyData.find(p => p.id == personId);
+  if (!person) return;
+  let eventsText = `رویدادهای ${person.name}:
+`;
+  if (!person.events || person.events.length === 0) {
+    eventsText += "هیچ رویدادی ثبت نشده است.";
+  } else {
+    person.events.forEach((event, index) => {
+      eventsText += `${index + 1}. نوع: ${getEventTypeLabel(event.type)}
+`;
+      if (event.year) eventsText += `   سال: ${event.year}
+`;
+      eventsText += `   توضیحات: ${event.description}
+`;
+    });
+  }
+  alert(eventsText);
+}
+function getEventTypeLabel(type) {
+  const types = {
+    birth: 'تولد',
+    wedding: 'ازدواج',
+    death: 'فوت',
+    graduation: 'فارغ‌التحصیلی',
+    work: 'شغل',
+    travel: 'سفر',
+    other: 'سایر'
+  };
+  return types[type] || type;
+}
+// ===============================
+// Export & Import
+// ===============================
+function exportToCSV() {
+  if (familyData.length === 0) {
+    showAlert('هیچ داده‌ای برای خروجی وجود ندارد', 'warning');
+    return;
+  }
+  let csv = 'شناسه,نام و همسر,سال تولد,جنسیت,والد,تعداد رویداده';
+  familyData.forEach(person => {
+    // Skip if this person is already rendered as a spouse
+    if (person.spouseId && person.id > person.spouseId) {
+      return;
+    }
+    const parent = person.parentId ? (familyData.find(p => p.id == person.parentId)?.name || '') : '';
+    const eventsCount = person.events?.length || 0;
+    const gender = person.gender === 'male' ? 'مرد' : person.gender === 'female' ? 'زن' : 'نامشخص';
+    // Create display name (include spouse if exists)
+    let displayName = person.name;
+    if (person.spouseId) {
+      const spouse = familyData.find(p => p.id == person.spouseId);
+      if (spouse) {
+        displayName += ` & ${spouse.name}`;
+      }
+    }
+    csv += `"${person.id}","${displayName}","${person.birth || ''}","${gender}","${parent}","${eventsCount}"
+`;
+  });
+  downloadFile(csv, 'family_data.csv', 'text/csv; charset=utf-8');
+}
+// ========== تابع backupData اصلاح شده برای خروجی data.json ==========
+function backupData() {
+  if (familyData.length === 0) {
+    showAlert('هیچ داده‌ای برای پشتیبان‌گیری وجود ندارد', 'warning');
+    return;
+  }
+  const backup = {
+    lastUpdated: new Date().toISOString(),
+    familyData: familyData
+  };
+  downloadFile(JSON.stringify(backup, null, 2), 'data.json', 'application/json');
+  showAlert('فایل data.json آماده بروزرسانی است!', 'success');
+}
+function importData() {
+  document.getElementById('importFileInput').click();
+}
+function handleImportFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if (!imported.data || !Array.isArray(imported.data)) {
+        throw new Error('Invalid backup format');
+      }
+      if (!confirm(`⚠️ آیا مطمئنید می‌خواهید داده‌های فعلی را با ${imported.data.length} عضو جدید جایگزین کنید؟
+این عمل غیرقابل بازگشت است!`)) {
+        return;
+      }
+      familyData = imported.data;
+      saveFamilyData();
+      refreshAllSelectors();
+      renderMembersTable();
+      showAlert('داده‌ها با موفقیت بازیابی شدند', 'success');
+    } catch (error) {
+      console.error('Error importing ', error);
+      showAlert('خطا در بازیابی داده‌ها - فایل معتبر نیست', 'danger');
+    }
+  };
+  reader.readAsText(file);
+}
+function downloadFile(content, filename, mimeType) {
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+// ===============================
+// Advanced Features
+// ===============================
+function validateData() {
+  let errors = [];
+  familyData.forEach(person => {
+    if (person.parentId && !familyData.some(p => p.id == person.parentId)) {
+      errors.push(`فرد ${person.name} (ID: ${person.id}) به والد ناموجود (ID: ${person.parentId}) اشاره می‌کند.`);
+    }
+    if (person.spouseId && !familyData.some(p => p.id == person.spouseId)) {
+      errors.push(`فرد ${person.name} (ID: ${person.id}) به همسر ناموجود (ID: ${person.spouseId}) اشاره می‌کند.`);
+    }
+    if (person.spouseId === person.id) {
+      errors.push(`فرد ${person.name} (ID: ${person.id}) با خودش ازدواج کرده است!`);
+    }
+    if (person.parentId === person.id) {
+      errors.push(`فرد ${person.name} (ID: ${person.id}) والد خودش است!`);
+    }
+  });
+  if (errors.length === 0) {
+    showAlert('✅ تمام داده‌ها سالم هستند!', 'success');
+  } else {
+    let message = `⚠️ ${errors.length} خطا در داده‌ها یافت شد:
+` + errors.join('');
+    alert(message);
+    showAlert(`${errors.length} خطا در داده‌ها یافت شد`, 'danger');
+  }
+}
+function repairData() {
+  let repaired = 0;
+  familyData = familyData.map(person => {
+    // Fix self-references
+    if (person.spouseId === person.id) {
+      person.spouseId = null;
+      repaired++;
+    }
+    if (person.parentId === person.id) {
+      person.parentId = null;
+      repaired++;
+    }
+    // Remove references to non-existent members
+    if (person.parentId && !familyData.some(p => p.id == person.parentId)) {
+      person.parentId = null;
+      repaired++;
+    }
+    if (person.spouseId && !familyData.some(p => p.id == person.spouseId)) {
+      person.spouseId = null;
+      repaired++;
+    }
+    return person;
+  });
+  if (repaired > 0) {
+    saveFamilyData();
+    showAlert(`✅ ${repaired} خطا تعمیر شد`, 'success');
+  } else {
+    showAlert('✅ هیچ خطایی برای تعمیر یافت نشد', 'info');
+  }
+}
+function resetAllData() {
+  if (confirm("🧨 آیا مطمئنید می‌خواهید همه داده‌ها را پاک کنید؟ این عمل غیرقابل بازگشت است!")) {
+    familyData = [];
+    saveFamilyData();
+    refreshAllSelectors();
+    renderMembersTable();
+    showAlert('تمام داده‌ها با موفقیت پاک شدند', 'success');
+  }
+}
+function generateReport() {
+  if (familyData.length === 0) {
+    showAlert('هیچ داده‌ای برای گزارش وجود ندارد', 'warning');
+    return;
+  }
+  let report = `📊 گزارش کامل شجره‌نامه
+`;
+  report += `تاریخ تولید: ${new Date().toLocaleString('fa-IR')}
+`;
+  report += `تعداد کل اعضا: ${familyData.length}
+`;
+  report += `تعداد مردان: ${familyData.filter(p => p.gender === 'male').length}
+`;
+  report += `تعداد زنان: ${familyData.filter(p => p.gender === 'female').length}
+`;
+  report += `تعداد افراد ریشه: ${familyData.filter(p => !p.parentId).length}
+`;
+  report += `تعداد زوج‌ها: ${familyData.filter(p => p.spouseId && p.id < p.spouseId).length}
+`;
+  report += `مجموع رویدادها: ${familyData.reduce((sum, p) => sum + (p.events?.length || 0), 0)}
+`;
+  report += `📋 لیست اعضا:
+`;
+  // Group by generation for report
+  const generations = {};
+  familyData.forEach(person => {
+    const gen = calculateGeneration(person.id);
+    if (!generations[gen]) {
+      generations[gen] = [];
+    }
+    generations[gen].push(person);
+  });
+  Object.keys(generations).sort((a, b) => a - b).forEach(gen => {
+    report += `
+=== نسل ${parseInt(gen) + 1} ===
+`;
+    generations[gen].forEach(person => {
+      // Skip if this person is already rendered as a spouse
+      if (person.spouseId && person.id > person.spouseId) {
+        return;
+      }
+      report += `
+---
+`;
+      report += `نام: ${person.name}
+`;
+      report += `شناسه: ${person.id}
+`;
+      report += `تولد: ${person.birth || '---'}
+`;
+      report += `جنسیت: ${person.gender === 'male' ? 'مرد' : person.gender === 'female' ? 'زن' : 'نامشخص'}
+`;
+      if (person.parentId) {
+        const parent = familyData.find(p => p.id == person.parentId);
+        report += `والد: ${parent ? parent.name : '---'}
+`;
+      }
+      if (person.spouseId) {
+        const spouse = familyData.find(p => p.id == person.spouseId);
+        report += `همسر: ${spouse ? spouse.name : '---'}
+`;
+      }
+      report += `توضیحات: ${person.desc || '---'}
+`;
+      if (person.events && person.events.length > 0) {
+        report += `رویدادها (${person.events.length}):
+`;
+        person.events.forEach(event => {
+          report += `  - ${getEventTypeLabel(event.type)} ${event.year ? '(' + event.year + ')' : ''}: ${event.description}
+`;
+        });
+      }
+    });
+  });
+  downloadFile(report, 'family_report.txt', 'text/plain; charset=utf-8');
+  showAlert('گزارش کامل با موفقیت دانلود شد', 'success');
+}
+function showStatistics() {
+  if (familyData.length === 0) {
+    showAlert('هیچ داده‌ای برای آمار وجود ندارد', 'warning');
+    return;
+  }
+  const birthYears = familyData
+    .filter(p => p.birth)
+    .map(p => parseInt(p.birth.replace(/[^\d]/g, '')))
+    .filter(year => !isNaN(year));
+  let stats = `📈 آمار تفصیلی شجره‌نامه
+`;
+  stats += `کل اعضا: ${familyData.length}
+`;
+  stats += `مردان: ${familyData.filter(p => p.gender === 'male').length}
+`;
+  stats += `زنان: ${familyData.filter(p => p.gender === 'female').length}
+`;
+  stats += `نامشخص: ${familyData.filter(p => p.gender === 'unknown').length}
+`;
+  if (birthYears.length > 0) {
+    const minYear = Math.min(...birthYears);
+    const maxYear = Math.max(...birthYears);
+    const avgYear = Math.round(birthYears.reduce((a, b) => a + b, 0) / birthYears.length);
+    stats += `قدیمی‌ترین تولد: ${minYear}
+`;
+    stats += `جدیدترین تولد: ${maxYear}
+`;
+    stats += `میانگین سال تولد: ${avgYear}
+`;
+  }
+  const eventsByType = {};
+  familyData.forEach(p => {
+    if (p.events) {
+      p.events.forEach(event => {
+        eventsByType[event.type] = (eventsByType[event.type] || 0) + 1;
+      });
+    }
+  });
+  if (Object.keys(eventsByType).length > 0) {
+    stats += `📊 توزیع رویدادها:
+`;
+    Object.entries(eventsByType).forEach(([type, count]) => {
+      stats += `  ${getEventTypeLabel(type)}: ${count}
+`;
+    });
+  }
+  alert(stats);
+}
+function exportAdvanced() {
+  if (familyData.length === 0) {
+    showAlert('هیچ داده‌ای برای خروجی پیشرفته وجود ندارد', 'warning');
+    return;
+  }
+  const exportData = {
+    meta :{
+      totalMembers: familyData.length,
+      totalMales: familyData.filter(p => p.gender === 'male').length,
+      totalFemales: familyData.filter(p => p.gender === 'female').length,
+      totalEvents: familyData.reduce((sum, p) => sum + (p.events?.length || 0), 0),
+      exportDate: new Date().toISOString(),
+      version: 'advanced-export-v1'
+    },
+    members: familyData.map(person => ({
+      id: person.id,
+      name: person.name,
+      birth: person.birth,
+      gender: person.gender,
+      description: person.desc,
+      photoUrl: person.photo,
+      parentId: person.parentId,
+      spouseId: person.spouseId,
+      events: person.events || [],
+      generation: calculateGeneration(person.id)
+    }))
+  };
+  downloadFile(JSON.stringify(exportData, null, 2), 'family_advanced_export.json', 'application/json');
+  showAlert('خروجی پیشرفته با موفقیت دانلود شد', 'success');
+}
+function calculateGeneration(personId, depth = 0) {
+  // Simple generation calculation (depth from root)
+  const person = familyData.find(p => p.id == personId);
+  if (!person || !person.parentId) return depth;
+  return calculateGeneration(person.parentId, depth + 1);
+}
+// ===============================
+// Theme & UI
+// ===============================
+function toggleTheme() {
+  currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+  document.body.setAttribute('data-theme', currentTheme);
+  localStorage.setItem('theme', currentTheme);
+  updateThemeIcon();
+  showAlert(`تم ${currentTheme === 'dark' ? 'تاریک' : 'روشن'} فعال شد`, 'info');
+}
+function updateThemeIcon() {
+  const icon = document.querySelector('.theme-toggle i');
+  if (currentTheme === 'dark') {
+    icon.className = 'fas fa-sun';
+  } else {
+    icon.className = 'fas fa-moon';
+  }
+}
+function showAlert(message, type = 'info') {
+  // Create alert element
+  const alertDiv = document.createElement('div');
+  alertDiv.className = `alert alert-${type}`;
+  alertDiv.innerHTML = `
+    <i class="fas ${type === 'success' ? 'fa-check-circle' : 
+                     type === 'warning' ? 'fa-exclamation-triangle' : 
+                     type === 'danger' ? 'fa-times-circle' : 
+                     'fa-info-circle'}"></i>
+    <span>${message}</span>
+  `;
+  // Add to body
+  document.body.appendChild(alertDiv);
+  // Auto remove after 3 seconds
+  setTimeout(() => {
+    if (alertDiv.parentNode) {
+      alertDiv.style.opacity = '0';
+      alertDiv.style.transition = 'opacity 0.3s ease';
+      setTimeout(() => {
+        if (alertDiv.parentNode) {
+          document.body.removeChild(alertDiv);
+        }
+      }, 300);
+    }
+  }, 3000);
+}
+// Initialize
+loadFamilyData();
+updateStats();
+renderMembersTable();
+</script>
+</body>
+</html>
