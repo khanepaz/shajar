@@ -165,14 +165,16 @@
       margin-top: 5px;
     }
     /* Tree Container */
-    .tree-wrapper {
-      position: relative;
-      overflow: auto;
-      border-radius: 16px;
-      background: var(--card-color);
-      box-shadow: 0 8px 32px var(--shadow-color);
-      padding: 30px;
-    }
+ /* Tree Container */
+.tree-wrapper {
+  position: relative;
+  overflow: auto;
+  border-radius: 16px;
+  background: var(--card-color);
+  box-shadow: 0 8px 32px var(--shadow-color);
+  padding: 30px;
+  max-width: 100%; /* ✅ این خط را اضافه کنید */
+}
     .generation-section {
       margin: 50px 0;
       animation: slideIn 0.6s ease-out;
@@ -624,7 +626,7 @@
   <div class="header-controls">
     <div class="header-right">
       <div class="search-box">
-        <input type="text" id="searchInput" placeholder="جستجوی نام، سال تولد یا توضیحات...">
+        <input type="text" id="searchInput" placeholder="جستجوی نام، سال و ..">
         <i class="fas fa-search"></i>
       </div>
       <button class="btn" onclick="exportData()">
