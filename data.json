@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2025-09-20T04:56:06.097Z",
+  "lastUpdated": "2025-09-20T07:14:12.383Z",
   "familyData": [
     {
       "id": 1,
@@ -97,13 +97,7 @@
       "desc": "ادمین",
       "parentId": 3,
       "photo": "https://ui-avatars.com/api/?name=%D8%AD%D8%A7%D9%85%D8%AF%20%D8%AE%D8%A7%D9%86%D9%87%20%D9%BE%D8%B2&background=random&size=150",
-      "events": [
-        {
-          "type": "work",
-          "year": "1392",
-          "description": "رئیس آزمایشگاه"
-        }
-      ],
+      "events": [],
       "spouseId": 10
     },
     {
@@ -301,6 +295,435 @@
       "desc": "",
       "parentId": 20,
       "photo": "https://ui-avatars.com/api/?name=%D8%A7%D8%AD%D8%B3%D8%A7%D9%86%20%D8%B1%D8%A7%D8%AF&background=random&size=150",
+      "events": [],
+      "spouseId": null
+    },
+    {
+      "id": 28,
+      "name": "مجید کاظمی فر",
+      "birth": "1340",
+      "gender": "male",
+      "desc": "",
+      "parentId": 1,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D8%AC%DB%8C%D8%AF%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": 29
+    },
+    {
+      "id": 29,
+      "name": "منیر قاسمی",
+      "birth": "1345",
+      "gender": "female",
+      "desc": "",
+      "parentId": null,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D9%86%DB%8C%D8%B1%20%D9%82%D8%A7%D8%B3%D9%85%DB%8C&background=random&size=150",
+      "events": [],
+      "spouseId": 28
+    },
+    {
+      "id": 30,
+      "name": "حمید کاظمی فر",
+      "birth": "1350",
+      "gender": "male",
+      "desc": "",
+      "parentId": 1,
+      "photo": "https://ui-avatars.com/api/?name=%D8%AD%D9%85%DB%8C%D8%AF%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": 31
+    },
+    {
+      "id": 31,
+      "name": "مهین بابایی",
+      "birth": "1355",
+      "gender": "female",
+      "desc": "مرحوم شده اند",
+      "parentId": null,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D9%87%DB%8C%D9%86%20%D8%A8%D8%A7%D8%A8%D8%A7%DB%8C%DB%8C&background=random&size=150",
+      "events": [],
+      "spouseId": 30
+    },
+    {
+      "id": 32,
+      "name": "اعظم کاظمی فر",
+      "birth": "1355",
+      "gender": "female",
+      "desc": "",
+      "parentId": 1,
+      "photo": "https://ui-avatars.com/api/?name=%D8%A7%D8%B9%D8%B8%D9%85%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": 33
+    },
+    {
+      "id": 33,
+      "name": "احمد نوری زادگان",
+      "birth": "1340",
+      "gender": "male",
+      "desc": "",
+      "parentId": null,
+      "photo": "https://ui-avatars.com/api/?name=%D8%A7%D8%AD%D9%85%D8%AF%20%D9%86%D9%88%D8%B1%DB%8C%20%D8%B2%D8%A7%D8%AF%DA%AF%D8%A7%D9%86&background=random&size=150",
+      "events": [],
+      "spouseId": 32
+    },
+    {
+      "id": 34,
+      "name": "مرتضی کاظمی فر",
+      "birth": "1355",
+      "gender": "male",
+      "desc": "",
+      "parentId": 1,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D8%B1%D8%AA%D8%B6%DB%8C%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": 35
+    },
+    {
+      "id": 35,
+      "name": "فرزانه هادیزاده",
+      "birth": "1360",
+      "gender": "female",
+      "desc": "",
+      "parentId": null,
+      "photo": "https://ui-avatars.com/api/?name=%D9%81%D8%B1%D8%B2%D8%A7%D9%86%D9%87%20%D9%87%D8%A7%D8%AF%DB%8C%D8%B2%D8%A7%D8%AF%D9%87&background=random&size=150",
+      "events": [],
+      "spouseId": 34
+    },
+    {
+      "id": 36,
+      "name": "مجتبی کاظمی فر",
+      "birth": "1357",
+      "gender": "male",
+      "desc": "",
+      "parentId": 1,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D8%AC%D8%AA%D8%A8%DB%8C%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": 37
+    },
+    {
+      "id": 37,
+      "name": "زهرا خوئینی",
+      "birth": "1364",
+      "gender": "female",
+      "desc": "",
+      "parentId": null,
+      "photo": "https://ui-avatars.com/api/?name=%D8%B2%D9%87%D8%B1%D8%A7%20%D8%AE%D9%88%D8%A6%DB%8C%D9%86%DB%8C&background=random&size=150",
+      "events": [],
+      "spouseId": 36
+    },
+    {
+      "id": 38,
+      "name": "نجمه کاظمی فر",
+      "birth": "1366",
+      "gender": "female",
+      "desc": "",
+      "parentId": 28,
+      "photo": "https://ui-avatars.com/api/?name=%D9%86%D8%AC%D9%85%D9%87%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": 39
+    },
+    {
+      "id": 39,
+      "name": "مهدی خورشیدی",
+      "birth": "1360",
+      "gender": "male",
+      "desc": "",
+      "parentId": null,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D9%87%D8%AF%DB%8C%20%D8%AE%D9%88%D8%B1%D8%B4%DB%8C%D8%AF%DB%8C&background=random&size=150",
+      "events": [],
+      "spouseId": 38
+    },
+    {
+      "id": 40,
+      "name": "نسرین کاظمی فر",
+      "birth": "1370",
+      "gender": "female",
+      "desc": "",
+      "parentId": 28,
+      "photo": "https://ui-avatars.com/api/?name=%D9%86%D8%B3%D8%B1%DB%8C%D9%86%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": 41
+    },
+    {
+      "id": 41,
+      "name": "علیرضا شهبازخانی",
+      "birth": "1366",
+      "gender": "male",
+      "desc": "",
+      "parentId": null,
+      "photo": "https://ui-avatars.com/api/?name=%D8%B9%D9%84%DB%8C%D8%B1%D8%B6%D8%A7%20%D8%B4%D9%87%D8%A8%D8%A7%D8%B2%D8%AE%D8%A7%D9%86%DB%8C&background=random&size=150",
+      "events": [],
+      "spouseId": 40
+    },
+    {
+      "id": 42,
+      "name": "محسن نوری زادگان",
+      "birth": "1362",
+      "gender": "male",
+      "desc": "",
+      "parentId": 32,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D8%AD%D8%B3%D9%86%20%D9%86%D9%88%D8%B1%DB%8C%20%D8%B2%D8%A7%D8%AF%DA%AF%D8%A7%D9%86&background=random&size=150",
+      "events": [],
+      "spouseId": 43
+    },
+    {
+      "id": 43,
+      "name": "بهاره",
+      "birth": "1367",
+      "gender": "female",
+      "desc": "",
+      "parentId": null,
+      "photo": "https://ui-avatars.com/api/?name=%D8%A8%D9%87%D8%A7%D8%B1%D9%87&background=random&size=150",
+      "events": [],
+      "spouseId": 42
+    },
+    {
+      "id": 44,
+      "name": "مهدی نوری زادگان",
+      "birth": "1368",
+      "gender": "male",
+      "desc": "",
+      "parentId": 32,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D9%87%D8%AF%DB%8C%20%D9%86%D9%88%D8%B1%DB%8C%20%D8%B2%D8%A7%D8%AF%DA%AF%D8%A7%D9%86&background=random&size=150",
+      "events": [],
+      "spouseId": 45
+    },
+    {
+      "id": 45,
+      "name": "نگین",
+      "birth": "1370",
+      "gender": "female",
+      "desc": "",
+      "parentId": null,
+      "photo": "https://ui-avatars.com/api/?name=%D9%86%DA%AF%DB%8C%D9%86&background=random&size=150",
+      "events": [],
+      "spouseId": 44
+    },
+    {
+      "id": 46,
+      "name": "متین نوری زادگان",
+      "birth": "1370",
+      "gender": "female",
+      "desc": "",
+      "parentId": 32,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D8%AA%DB%8C%D9%86%20%D9%86%D9%88%D8%B1%DB%8C%20%D8%B2%D8%A7%D8%AF%DA%AF%D8%A7%D9%86&background=random&size=150",
+      "events": [],
+      "spouseId": 47
+    },
+    {
+      "id": 47,
+      "name": "محمد رضا",
+      "birth": "1366",
+      "gender": "male",
+      "desc": "",
+      "parentId": null,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D8%AD%D9%85%D8%AF%20%D8%B1%D8%B6%D8%A7&background=random&size=150",
+      "events": [],
+      "spouseId": 46
+    },
+    {
+      "id": 48,
+      "name": "الهه کاظمی فر",
+      "birth": "1371",
+      "gender": "female",
+      "desc": "",
+      "parentId": 30,
+      "photo": "https://ui-avatars.com/api/?name=%D8%A7%D9%84%D9%87%D9%87%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": null
+    },
+    {
+      "id": 49,
+      "name": "مصطفی کاظمی فر",
+      "birth": "1380",
+      "gender": "male",
+      "desc": "",
+      "parentId": 30,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D8%B5%D8%B7%D9%81%DB%8C%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": 50
+    },
+    {
+      "id": 50,
+      "name": "زهره غفوری",
+      "birth": "1380",
+      "gender": "female",
+      "desc": "",
+      "parentId": null,
+      "photo": "https://ui-avatars.com/api/?name=%D8%B2%D9%87%D8%B1%D9%87%20%D8%BA%D9%81%D9%88%D8%B1%DB%8C&background=random&size=150",
+      "events": [],
+      "spouseId": 49
+    },
+    {
+      "id": 51,
+      "name": "محمد کاظمی فر",
+      "birth": "1380",
+      "gender": "male",
+      "desc": "",
+      "parentId": 30,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D8%AD%D9%85%D8%AF%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": 52
+    },
+    {
+      "id": 52,
+      "name": "بهار",
+      "birth": "1388",
+      "gender": "female",
+      "desc": "",
+      "parentId": null,
+      "photo": "https://ui-avatars.com/api/?name=%D8%A8%D9%87%D8%A7%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": 51
+    },
+    {
+      "id": 53,
+      "name": "حوریه کاظمی فر",
+      "birth": "1359",
+      "gender": "male",
+      "desc": "",
+      "parentId": 34,
+      "photo": "https://ui-avatars.com/api/?name=%D8%AD%D9%88%D8%B1%DB%8C%D9%87%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": 54
+    },
+    {
+      "id": 54,
+      "name": "محمد رضا رشوند",
+      "birth": "1370",
+      "gender": "male",
+      "desc": "",
+      "parentId": null,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D8%AD%D9%85%D8%AF%20%D8%B1%D8%B6%D8%A7%20%D8%B1%D8%B4%D9%88%D9%86%D8%AF&background=random&size=150",
+      "events": [],
+      "spouseId": 53
+    },
+    {
+      "id": 55,
+      "name": "هانیه کاظمی فر",
+      "birth": "1375",
+      "gender": "female",
+      "desc": "",
+      "parentId": 34,
+      "photo": "https://ui-avatars.com/api/?name=%D9%87%D8%A7%D9%86%DB%8C%D9%87%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": null
+    },
+    {
+      "id": 56,
+      "name": "فاطمه کاظمی فر",
+      "birth": "1385",
+      "gender": "female",
+      "desc": "",
+      "parentId": 36,
+      "photo": "https://ui-avatars.com/api/?name=%D9%81%D8%A7%D8%B7%D9%85%D9%87%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": null
+    },
+    {
+      "id": 57,
+      "name": "ساجده کاظمی فر",
+      "birth": "1390",
+      "gender": "female",
+      "desc": "",
+      "parentId": 36,
+      "photo": "https://ui-avatars.com/api/?name=%D8%B3%D8%A7%D8%AC%D8%AF%D9%87%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": null
+    },
+    {
+      "id": 58,
+      "name": "حسین خورشیدی",
+      "birth": "1395",
+      "gender": "male",
+      "desc": "",
+      "parentId": 38,
+      "photo": "https://ui-avatars.com/api/?name=%D8%AD%D8%B3%DB%8C%D9%86%20%D8%AE%D9%88%D8%B1%D8%B4%DB%8C%D8%AF%DB%8C&background=random&size=150",
+      "events": [],
+      "spouseId": null
+    },
+    {
+      "id": 59,
+      "name": "عباس خورشیدی",
+      "birth": "1395",
+      "gender": "male",
+      "desc": "",
+      "parentId": 38,
+      "photo": "https://ui-avatars.com/api/?name=%D8%B9%D8%A8%D8%A7%D8%B3%20%D8%AE%D9%88%D8%B1%D8%B4%DB%8C%D8%AF%DB%8C&background=random&size=150",
+      "events": [],
+      "spouseId": null
+    },
+    {
+      "id": 60,
+      "name": "زینب خورشیدی",
+      "birth": "1398",
+      "gender": "female",
+      "desc": "",
+      "parentId": 38,
+      "photo": "https://ui-avatars.com/api/?name=%D8%B2%DB%8C%D9%86%D8%A8%20%D8%AE%D9%88%D8%B1%D8%B4%DB%8C%D8%AF%DB%8C&background=random&size=150",
+      "events": [],
+      "spouseId": null
+    },
+    {
+      "id": 61,
+      "name": "حسنا نوری زادگان",
+      "birth": "1390",
+      "gender": "female",
+      "desc": "",
+      "parentId": 42,
+      "photo": "https://ui-avatars.com/api/?name=%D8%AD%D8%B3%D9%86%D8%A7%20%D9%86%D9%88%D8%B1%DB%8C%20%D8%B2%D8%A7%D8%AF%DA%AF%D8%A7%D9%86&background=random&size=150",
+      "events": [],
+      "spouseId": null
+    },
+    {
+      "id": 62,
+      "name": "دلسا نوری زادگان",
+      "birth": "1397",
+      "gender": "female",
+      "desc": "",
+      "parentId": 44,
+      "photo": "https://ui-avatars.com/api/?name=%D8%AF%D9%84%D8%B3%D8%A7%20%D9%86%D9%88%D8%B1%DB%8C%20%D8%B2%D8%A7%D8%AF%DA%AF%D8%A7%D9%86&background=random&size=150",
+      "events": [],
+      "spouseId": null
+    },
+    {
+      "id": 63,
+      "name": "امیر علی نوری زادگان",
+      "birth": "1397",
+      "gender": "male",
+      "desc": "",
+      "parentId": 46,
+      "photo": "https://ui-avatars.com/api/?name=%D8%A7%D9%85%DB%8C%D8%B1%20%D8%B9%D9%84%DB%8C%20%D9%86%D9%88%D8%B1%DB%8C%20%D8%B2%D8%A7%D8%AF%DA%AF%D8%A7%D9%86&background=random&size=150",
+      "events": [],
+      "spouseId": null
+    },
+    {
+      "id": 64,
+      "name": "امیر عباس پرپینچی",
+      "birth": "1395",
+      "gender": "male",
+      "desc": "",
+      "parentId": 48,
+      "photo": "https://ui-avatars.com/api/?name=%D8%A7%D9%85%DB%8C%D8%B1%20%D8%B9%D8%A8%D8%A7%D8%B3%20%D9%BE%D8%B1%D9%BE%DB%8C%D9%86%DA%86%DB%8C&background=random&size=150",
+      "events": [],
+      "spouseId": null
+    },
+    {
+      "id": 65,
+      "name": "دیانا کاظمی فر",
+      "birth": "1399",
+      "gender": "female",
+      "desc": "",
+      "parentId": 49,
+      "photo": "https://ui-avatars.com/api/?name=%D8%AF%DB%8C%D8%A7%D9%86%D8%A7%20%DA%A9%D8%A7%D8%B8%D9%85%DB%8C%20%D9%81%D8%B1&background=random&size=150",
+      "events": [],
+      "spouseId": null
+    },
+    {
+      "id": 66,
+      "name": "محمد مهدی رشوند",
+      "birth": "1370",
+      "gender": "male",
+      "desc": "",
+      "parentId": 53,
+      "photo": "https://ui-avatars.com/api/?name=%D9%85%D8%AD%D9%85%D8%AF%20%D9%85%D9%87%D8%AF%DB%8C%20%D8%B1%D8%B4%D9%88%D9%86%D8%AF&background=random&size=150",
       "events": [],
       "spouseId": null
     }
