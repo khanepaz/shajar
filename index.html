@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🌳 شجره‌نامه خانوادگی پیشرفته</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Vazirmatn', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+/* ========== NEW: Center-align only the first generation ========== */
+.first-generation-row {
+    justify-content: center; /* این خط باعث می‌شود کارت‌های نسل اول در مرکز قرار بگیرند */
+}
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --male-color: #4a90e2;
+      --female-color: #e74c3c;
+      --bg-light: #f8f9fa;
+      --bg-dark: #1a1a1a;
+      --text-light: #2c3e50;
+      --text-dark: #ffffff;
+      --card-light: #ffffff;
+      --card-dark: #2d2d2d;
+      --border-light: #e1e8ed;
+      --border-dark: #404040;
+      --shadow-light: rgba(0, 0, 0, 0.1);
+      --shadow-dark: rgba(255, 255, 255, 0.1);
+    }
+    [data-theme="dark"] {
+      --bg-color: var(--bg-dark);
+      --text-color: var(--text-dark);
+      --card-color: var(--card-dark);
+      --border-color: var(--border-dark);
+      --shadow-color: var(--shadow-dark);
+    }
+    [data-theme="light"] {
+      --bg-color: var(--bg-light);
+      --text-color: var(--text-light);
+      --card-color: var(--card-light);
+      --border-color: var(--border-light);
+      --shadow-color: var(--shadow-light);
+    }
+    body {
+      background: linear-gradient(135deg, var(--bg-color), #f1f3f4);
+      color: var(--text-color);
+      font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+      transition: all 0.3s ease;
+    }
+    /* Header Controls */
+    .header-controls {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--card-color);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .header-left,
+    .header-right {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .search-box {
+      position: relative;
+      min-width: 200px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 8px 40px 8px 12px;
+      border: 2px solid var(--border-color);
+      border-radius: 20px;
+      background: var(--card-color);
+      color: var(--text-color);
+      transition: all 0.3s ease;
+    }
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+    }
+    .search-box i {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-color);
+      opacity: 0.6;
+    }
+    .btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--secondary-color);
+      color: white;
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow-color);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--border-color);
+      color: var(--text-color);
+    }
+    .theme-toggle {
+      background: var(--card-color);
+      color: var(--text-color);
+      border: 2px solid var(--border-color);
+    }
+    /* Main Container */
+    .main-container {
+      margin-top: 80px;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    /* Stats Panel */
+    .stats-panel {
+      background: var(--card-color);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      box-shadow: 0 8px 32px var(--shadow-color);
+    }
+    .stat-item {
+      text-align: center;
+      padding: 15px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--secondary-color), #5dade2);
+      color: white;
+    }
+    .stat-number {
+      font-size: 2em;
+      font-weight: bold;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.9em;
+      opacity: 0.9;
+      margin-top: 5px;
+    }
+    /* Tree Container */
+    .tree-wrapper {
+      position: relative;
+      overflow: auto;
+      border-radius: 16px;
+      background: var(--card-color);
+      box-shadow: 0 8px 32px var(--shadow-color);
+      padding: 30px;
+    }
+    .generation-section {
+      margin: 50px 0;
+      animation: slideIn 0.6s ease-out;
+    }
+    .generation-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+      font-size: 1.4em;
+      font-weight: bold;
+      color: var(--secondary-color);
+    }
+    .generation-header::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: linear-gradient(90deg, var(--secondary-color), transparent);
+      margin-left: 20px;
+    }
+    .members-row {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      overflow-x: auto;
+      padding: 10px 0;
+      scroll-behavior: smooth;
+      width: 100%;
+      /* ✅ این خط را اضافه کنید */
+      min-width: 0;
+      /* ✅ این خط را اضافه کنید - کلید اصلی حل مشکل */
+    }
+    /* Optional: Hide scrollbar for a cleaner look (works in WebKit browsers) */
+    .members-row::-webkit-scrollbar {
+      height: 6px;
+    }
+    .members-row::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .members-row::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 3px;
+    }
+    .members-row::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary-color);
+    }
+    /* Person Cards */
+    .person-card {
+      background: var(--card-color);
+      border-radius: 20px;
+      padding: 15px;
+      /* width: 220px; */
+      text-align: center;
+      box-shadow: 0 8px 32px var(--shadow-color);
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .person-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 20px 60px var(--shadow-color);
+    }
+    .person-card.male {
+      border-left: 5px solid var(--male-color);
+      background: linear-gradient(135deg, var(--card-color), rgba(74, 144, 226, 0.05));
+    }
+    .person-card.female {
+      border-left: 5px solid var(--female-color);
+      background: linear-gradient(135deg, var(--card-color), rgba(231, 76, 60, 0.05));
+    }
+    .person-card.highlight {
+      border: 3px solid #f39c12;
+      box-shadow: 0 0 20px rgba(243, 156, 18, 0.3);
+    }
+    .gender-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+    }
+    .gender-badge.male {
+      background: var(--male-color);
+    }
+    .gender-badge.female {
+      background: var(--female-color);
+    }
+    .person-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--border-color);
+      margin: 8px 0 12px;
+      transition: all 0.3s ease;
+    }
+    .person-card:hover .person-avatar {
+      transform: scale(1.1);
+      border-color: var(--secondary-color);
+    }
+    .person-name {
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+    .person-birth {
+      color: var(--secondary-color);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .person-desc {
+      font-size: 0.9em;
+      color: var(--text-color);
+      opacity: 0.7;
+      margin-bottom: 15px;
+    }
+    /* Events Timeline */
+    .events-timeline {
+      text-align: right;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border-color);
+    }
+    .event-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0;
+      font-size: 0.85em;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(52, 152, 219, 0.1);
+    }
+    .event-icon {
+      width: 20px;
+      text-align: center;
+    }
+    /* Spouse Section */
+    .spouse-section {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px dashed var(--border-color);
+    }
+    .spouse-title {
+      font-size: 0.8em;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: var(--secondary-color);
+    }
+    /* ========== REMOVED: Children Section ========== */
+    /* We no longer show children in the main card to keep it clean */
+    /* Relationship Lines */
+    .connection-line {
+      position: absolute;
+      background: var(--secondary-color);
+      z-index: -1;
+      opacity: 0.6;
+      transition: all 0.3s ease;
+    }
+    .connection-line.marriage {
+      height: 3px;
+      background: #e74c3c;
+    }
+    .connection-line.parent-child {
+      width: 2px;
+      background: var(--secondary-color);
+    }
+    /* Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      backdrop-filter: blur(5px);
+    }
+    .modal-content {
+      background: var(--card-color);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: modalSlideIn 0.3s ease-out;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--text-color);
+      padding: 5px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    .modal-close:hover {
+      background: var(--border-color);
+      transform: rotate(90deg);
+    }
+    /* ========== NEW: Descendants Tree Styles ========== */
+    .descendants-tree {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+    }
+    .descendants-title {
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .generation-node {
+      margin: 15px 0;
+      padding: 10px;
+      border-right: 3px solid var(--secondary-color);
+      background: rgba(52, 152, 219, 0.05);
+      border-radius: 8px;
+    }
+    .generation-label {
+      font-size: 0.9em;
+      font-weight: bold;
+      color: var(--secondary-color);
+      margin-bottom: 8px;
+    }
+    .children-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .child-item {
+      padding: 8px 12px;
+      background: var(--card-color);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .child-name {
+      font-weight: 500;
+    }
+    .child-gender {
+      font-size: 0.8em;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .child-gender.male {
+      background: rgba(74, 144, 226, 0.2);
+      color: var(--male-color);
+    }
+    .child-gender.female {
+      background: rgba(231, 76, 60, 0.2);
+      color: var(--female-color);
+    }
+    /* Animations */
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(52, 152, 219, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
+      }
+    }
+    /* Loading Spinner */
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border-color);
+      border-radius: 50%;
+      border-top-color: var(--secondary-color);
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-controls {
+        flex-direction: column;
+        padding: 15px;
+      }
+      .search-box {
+        min-width: unset;
+        width: 100%;
+      }
+      .person-card {
+        width: 240px;
+      }
+      .stats-panel {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .main-container {
+        margin-top: 120px;
+        padding: 15px;
+      }
+    }
+    @media (max-width: 480px) {
+      .person-card {
+        width: 200px;
+        padding: 15px;
+      }
+      .person-avatar {
+        width: 80px;
+        height: 80px;
+      }
+      .stats-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+    /* Print Styles */
+    @media print {
+      .header-controls,
+      .btn,
+      .modal-overlay {
+        display: none !important;
+      }
+      .person-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #000;
+      }
+    }
+    /* Responsive Design */
+    @media (max-width: 425px) {
+      .header-controls {
+        flex-direction: column;
+        padding: 15px;
+      }
+      .search-box {
+        min-width: unset;
+        width: 100%;
+      }
+      .person-card {
+        flex: 0 0 100%;
+        /* Exactly 1 card per row */
+        min-width: 100%;
+        /* Ensure it takes full width */
+        width: 100%;
+        /* Fallback */
+      }
+      .stats-panel {
+        grid-template-columns: 1fr;
+      }
+      .main-container {
+        margin-top: 120px;
+        padding: 15px;
+      }
+    }
+    @media (min-width: 426px) and (max-width: 768px) {
+      .person-card {
+        flex: 0 0 50%;
+        /* Exactly 2 cards per row */
+        min-width: 50%;
+        /* Ensure minimum width */
+      }
+      /* Optional: Adjust padding or gap for better fit */
+      .members-row {
+        gap: 10px;
+        /* Slightly reduce gap for 2 cards */
+      }
+    }
+    @media (min-width: 769px) {
+      .person-card {
+        flex: 0 0 25%;
+        /* Exactly 4 cards per row */
+        min-width: 25%;
+        /* ✅ این خط را اضافه کنید تا کارت‌ها کوچک‌تر از 25% نشوند */
+      }
+      .members-row {
+        gap: 20px;
+        /* Default gap */
+      }
+    }
+    /* ========== NEW: Mobile-First Horizontal Scroll Behavior ========== */
+    @media (max-width: 768px) {
+      .members-row {
+        padding: 20px 0;
+        /* Optional: Increase padding for better touch experience */
+      }
+      .person-card {
+        min-width: 100%;
+        /* Force each card to take full width on mobile */
+        width: 100%;
+        /* Ensure it takes full width */
+        flex-shrink: 0;
+        /* Prevent card from shrinking */
+      }
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <!-- Header Controls -->
+  <div class="header-controls">
+    <div class="header-right">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="جستجوی نام، سال تولد یا توضیحات...">
+        <i class="fas fa-search"></i>
+      </div>
+      <button class="btn" onclick="exportData()">
+        <i class="fas fa-download"></i> خروجی
+      </button>
+      <button class="btn" onclick="printTree()">
+        <i class="fas fa-print"></i> چاپ
+      </button>
+    </div>
+    <div class="header-left">
+      <button class="btn theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="btn btn-outline" onclick="showStats()">
+        <i class="fas fa-chart-bar"></i> آمار
+      </button>
+      <button class="btn" onclick="location.href='admin.html'">
+        <i class="fas fa-cog"></i> مدیریت
+      </button>
+    </div>
+  </div>
+  <!-- Main Container -->
+  <div class="main-container">
+    <!-- Stats Panel -->
+    <div class="stats-panel" id="statsPanel">
+      <div class="stat-item">
+        <span class="stat-number" id="totalMembers">0</span>
+        <span class="stat-label">کل اعضا</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="totalMales">0</span>
+        <span class="stat-label">مردان</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="totalFemales">0</span>
+        <span class="stat-label">زنان</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number" id="totalGenerations">0</span>
+        <span class="stat-label">نسل‌ها</span>
+      </div>
+    </div>
+    <!-- Tree Container -->
+    <div class="tree-wrapper">
+      <div id="treeContainer"></div>
+    </div>
+  </div>
+  <!-- Person Detail Modal -->
+  <div class="modal-overlay" id="personModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">جزئیات فرد</h3>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div id="modalBody">
+        <!-- Content will be populated by JavaScript -->
+      </div>
+    </div>
+  </div>
+  <script>
+    // ===============================
+    // Data Management & Configuration
+    // ===============================
+    let familyData = [];
+    let filteredData = [];
+    let currentTheme = localStorage.getItem('theme') || 'light';
+    let lastUpdateTime = 0;
+    // Default family data (Updated to match new structure)
+    const defaultFamily = [
+      {
+        id: 1,
+        name: "احمد رضایی",
+        birth: "۱۳۳۰",
+        desc: "پدربزرگ خانواده",
+        photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+        gender: "male",
+        parentId: null,
+        spouseId: 2,
+        events: [
+          { type: "birth", year: "۱۳۳۰", desc: "تولد در تهران" },
+          { type: "wedding", year: "۱۳۵۰", desc: "ازدواج با زهرا" }
+        ]
+      },
+      {
+        id: 2,
+        name: "زهرا احمدی",
+        birth: "۱۳۳۲",
+        desc: "مادربزرگ خانواده",
+        photo: "https://images.unsplash.com/photo-1494790108755-2616c10ca436?w=150&h=150&fit=crop&crop=face",
+        gender: "female",
+        parentId: null,
+        spouseId: 1,
+        events: [
+          { type: "birth", year: "۱۳۳۲", desc: "تولد در اصفهان" },
+          { type: "wedding", year: "۱۳۵۰", desc: "ازدواج با احمد" }
+        ]
+      },
+      {
+        id: 3,
+        name: "رضا رضایی",
+        birth: "۱۳۵۵",
+        desc: "پسر ارشد",
+        photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+        gender: "male",
+        parentId: 1,
+        spouseId: 4,
+        events: [
+          { type: "birth", year: "۱۳۵۵", desc: "تولد" },
+          { type: "graduation", year: "۱۳۷۸", desc: "فارغ‌التحصیلی از دانشگاه" },
+          { type: "wedding", year: "۱۳۸۰", desc: "ازدواج" }
+        ]
+      },
+      {
+        id: 4,
+        name: "فاطمه نوری",
+        birth: "۱۳۵۸",
+        desc: "همسر رضا",
+        photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+        gender: "female",
+        parentId: null,
+        spouseId: 3,
+        events: [
+          { type: "birth", year: "۱۳۵۸", desc: "تولد در شیراز" },
+          { type: "wedding", year: "۱۳۸۰", desc: "ازدواج با رضا" }
+        ]
+      },
+      {
+        id: 5,
+        name: "سارا رضایی",
+        birth: "۱۳۸۵",
+        desc: "دختر رضا و فاطمه",
+        photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
+        gender: "female",
+        parentId: 3,
+        spouseId: null,
+        events: [
+          { type: "birth", year: "۱۳۸۵", desc: "تولد" },
+          { type: "graduation", year: "۱۴۰۶", desc: "فارغ‌التحصیلی از دبیرستان" }
+        ]
+      },
+      {
+        id: 6,
+        name: "علی رضایی",
+        birth: "۱۳۸۸",
+        desc: "پسر رضا و فاطمه",
+        photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
+        gender: "male",
+        parentId: 3,
+        spouseId: null,
+        events: [
+          { type: "birth", year: "۱۳۸۸", desc: "تولد" }
+        ]
+      },
+      {
+        id: 7,
+        name: "نرگس علی‌زاده",
+        birth: "۱۳۹۰",
+        desc: "همسر علی",
+        photo: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
+        gender: "female",
+        parentId: null,
+        spouseId: 6,
+        events: [
+          { type: "birth", year: "۱۳۹۰", desc: "تولد" },
+          { type: "wedding", year: "۱۴۱۰", desc: "ازدواج با علی" }
+        ]
+      },
+      {
+        id: 8,
+        name: "آرمین علی‌زاده",
+        birth: "۱۴۱۲",
+        desc: "پسر علی و نرگس",
+        photo: "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=150&h=150&fit=crop&crop=face",
+        gender: "male",
+        parentId: 6,
+        spouseId: null,
+        events: [
+          { type: "birth", year: "۱۴۱۲", desc: "تولد" }
+        ]
+      }
+    ];
+    // ===============================
+    // Core Functions
+    // ===============================
+    async function initializeApp() {
+      // Apply saved theme
+      document.body.setAttribute('data-theme', currentTheme);
+      updateThemeIcon();
+      // Load family data
+      await loadFamilyData(); // <-- تغییر: اضافه کردن await
+      // Set up event listeners
+      setupEventListeners();
+      // Initial render
+      renderTree();
+      updateStats();
+      // Check for updates periodically (but smartly)
+      setInterval(checkForUpdates, 10000); // Every 10 seconds instead of 30
+    }
+    function loadFamilyData() {
+      return fetch('data.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('خطا در بارگذاری فایل داده‌ها');
+          }
+          return response.json();
+        })
+        .then(data => {
+          familyData = data.familyData || [];
+          lastUpdateTime = new Date(data.lastUpdated || 0).getTime();
+          filteredData = [...familyData];
+        })
+        .catch(error => {
+          console.error('Error loading ', error);
+          // Fallback to default data if fetch fails
+          familyData = [...defaultFamily];
+          lastUpdateTime = Date.now();
+          filteredData = [...familyData];
+          showNotification('⚠️ امکان بارگذاری داده‌های جدید وجود ندارد. از نسخه پیش‌فرض استفاده می‌شود.', 'warning', 5000);
+        });
+    }
+    function setupEventListeners() {
+      const searchInput = document.getElementById('searchInput');
+      searchInput.addEventListener('input', debounce(handleSearch, 300));
+      // Keyboard shortcuts
+      document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey || e.metaKey) {
+          switch (e.key) {
+            case 'f':
+              e.preventDefault();
+              searchInput.focus();
+              break;
+            case 'p':
+              e.preventDefault();
+              printTree();
+              break;
+          }
+        }
+        if (e.key === 'Escape') {
+          closeModal();
+        }
+      });
+    }
+    // ===============================
+    // Tree Rendering
+    // ===============================
+    function getGeneration(personId, depth = 0, visited = new Set()) {
+      if (!personId || depth > 10) return 0; // Prevent infinite loops
+      if (visited.has(personId)) return 0; // Prevent circular references
+      visited.add(personId);
+      const person = familyData.find(p => p.id === personId);
+      if (!person) return 0;
+      // If person has a parent, return parent's generation + 1
+      if (person.parentId) {
+        return getGeneration(person.parentId, depth + 1, new Set(visited)) + 1;
+      }
+      // If person has no parent but has a spouse, return spouse's generation
+      if (person.spouseId) {
+        return getGeneration(person.spouseId, depth + 1, new Set(visited));
+      }
+      // Otherwise, this is generation 0 (founder)
+      return 0;
+    }
+    function renderTree() {
+      const container = document.getElementById('treeContainer');
+      container.innerHTML = '';
+      if (filteredData.length === 0) {
+        container.innerHTML = '<div style="text-align: center; padding: 50px; color: var(--text-color); opacity: 0.6;"><i class="fas fa-search fa-3x"></i><p style="margin-top: 20px;">هیچ فردی یافت نشد</p></div>';
+        return;
+      }
+      // Group by generation
+      const generations = {};
+      filteredData.forEach(person => {
+        const gen = getGeneration(person.id);
+        if (!generations[gen]) generations[gen] = [];
+        generations[gen].push(person);
+      });
+      // Render each generation
+      Object.keys(generations)
+        .sort((a, b) => parseInt(a) - parseInt(b))
+        .forEach(gen => {
+          const section = createGenerationSection(parseInt(gen), generations[gen]);
+          container.appendChild(section);
+        });
+      // Add connection lines after a delay
+      setTimeout(drawConnections, 100);
+    }
+    function createGenerationSection(genNumber, members) {
+      const section = document.createElement('div');
+      section.className = 'generation-section';
+      section.style.animationDelay = `${genNumber * 0.1}s`;
+      const header = document.createElement('div');
+      header.className = 'generation-header';
+      header.innerHTML = `<i class="fas fa-users"></i> نسل ${genNumber + 1}`;
+      const membersRow = document.createElement('div');
+      membersRow.className = 'members-row';
+      if (genNumber === 0) { // نسل اول (Founder)
+        membersRow.classList.add('first-generation-row');
+      }
+      // Process members: Only add "root" members of this generation
+      const processed = new Set();
+      members.forEach(person => {
+        if (processed.has(person.id)) return;
+        // ========== FIXED LOGIC ==========
+        // A person should be added as a root in this generation if:
+        // 1. They have no parent (founder), OR
+        // 2. Their parent belongs to a PREVIOUS generation (not the current one)
+        let shouldAddAsRoot = false;
+        if (!person.parentId) {
+          // Founder, always add
+          shouldAddAsRoot = true;
+        } else {
+          // Get the parent's generation
+          const parent = familyData.find(p => p.id === person.parentId);
+          if (parent) {
+            const parentGen = getGeneration(parent.id);
+            // Add if parent is from a previous generation
+            if (parentGen < genNumber) {
+              shouldAddAsRoot = true;
+            }
+          } else {
+            // Parent not found in full data, treat as root
+            shouldAddAsRoot = true;
+          }
+        }
+        // Also add if this person is a spouse of someone who is being added as root in this gen
+        if (!shouldAddAsRoot && person.spouseId && processed.has(person.spouseId)) {
+          shouldAddAsRoot = true;
+        }
+        if (!shouldAddAsRoot) return;
+        // ========== END FIXED LOGIC ==========
+        let mainPerson = person;
+        let spouse = null;
+        // Check if this person has a spouse
+        if (person.spouseId) {
+          spouse = familyData.find(p => p.id === person.spouseId);
+        }
+        // CRITICAL CHANGE: If the person has a parent (is a child), they are the "main" person.
+        // If they DON'T have a parent (founder), but their spouse DOES, then the spouse should be the "main" person.
+        if (spouse && !person.parentId && spouse.parentId) {
+          // Swap: The spouse is the child, so they should be the main person in the card.
+          mainPerson = spouse;
+          spouse = person; // The original person becomes the spouse in the card.
+          // Mark the original person as processed to avoid duplicate card.
+          processed.add(person.id);
+        }
+        // Create card for the MAIN person
+        const card = createPersonCard(mainPerson);
+        membersRow.appendChild(card);
+        processed.add(mainPerson.id);
+        // If there is a spouse, add them to the card
+        if (spouse && !processed.has(spouse.id)) {
+          // addSpouseToCard(card, spouse); // Commented out as per previous instruction
+          processed.add(spouse.id);
+        }
+      });
+      section.appendChild(header);
+      section.appendChild(membersRow);
+      return section;
+    }
+    function createPersonCard(person) {
+      const card = document.createElement('div');
+      card.className = `person-card ${person.gender}`;
+      card.setAttribute('data-id', person.id);
+      card.onclick = () => showPersonDetail(person);
+      // ========== NEW: Build Descendants List for Main Card ==========
+      const descendantsListHTML = buildDescendantsListForCard(person.id);
+      let eventsHTML = '';
+      if (person.events && person.events.length > 0) {
+        eventsHTML = `<div class="events-timeline">
+      ${person.events.slice(0, 3).map(event => `
+        <div class="event-item">
+          <span class="event-icon">${getEventIcon(event.type)}</span>
+          <span>${event.year || '---'}: ${event.description}</span>
+        </div>
+      `).join('')}
+      ${person.events.length > 3 ? `<div class="event-item"><span class="event-icon">...</span><span>و ${person.events.length - 3} رویداد دیگر</span></div>` : ''}
+    </div>`;
+      }
+      // Add a star icon for children
+      const isChild = person.parentId !== null;
+      const starIcon = isChild ? '<i class="fas fa-star" style="color: gold; font-size: 0.8em;"></i>' : '';
+      // Check if this person has a spouse
+      const spouse = person.spouseId ? familyData.find(p => p.id === person.spouseId) : null;
+      // Build spouse section HTML if spouse exists
+      let spouseSectionHTML = '';
+      if (spouse) {
+        spouseSectionHTML = `
+      <div class="spouse-section">
+        <div class="spouse-title">همسر:</div>
+        <img class="person-avatar"
+             src="${spouse.photo}"
+             alt="${spouse.name}"
+             onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(spouse.name)}&background=random&size=150'">
+        <div class="person-name">${spouse.name}</div>
+        <div class="person-birth">${spouse.birth || 'نامشخص'}</div>
+        <div class="person-desc">${spouse.desc || ''}</div>
+      </div>
+    `;
+      }
+      card.innerHTML = `
+    <img class="person-avatar" 
+         src="${person.photo}" 
+         alt="${person.name}" 
+         onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(person.name)}&background=random&size=150'">
+    <div class="person-name">${person.name} ${starIcon}</div>
+    <div class="person-birth">${person.birth || 'نامشخص'}</div>
+    <div class="person-desc">${person.desc || ''}</div>
+    ${spouseSectionHTML} <!-- اضافه کردن بخش همسر به داخل کارت اصلی -->
+    ${eventsHTML}
+  `;
+      return card;
+    }
+    // ========== NEW: Function to Build Descendants List for Main Card ==========
+    function buildDescendantsListForCard(personId, maxDepth = 3) {
+      const allDescendants = getAllDescendants(personId, 1, maxDepth);
+      if (allDescendants.length === 0) return '';
+      let listHTML = `
+    <div class="descendants-summary" style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color);">
+      <strong>نوادگان:</strong>
+  `;
+      // Group descendants by generation
+      const generations = {};
+      allDescendants.forEach(desc => {
+        if (!generations[desc.generation]) generations[desc.generation] = [];
+        generations[desc.generation].push(desc);
+      });
+      // Persian labels for generations
+      const persianGenLabels = {
+        '1': 'فرزندان مستقیم',
+        '2': 'نوه‌ها',
+        '3': 'فرزندان نوه‌ها'
+      };
+      // Add each generation
+      Object.keys(generations).sort((a, b) => parseInt(a) - parseInt(b)).forEach(gen => {
+        const label = persianGenLabels[gen] || `نسل ${gen}`;
+        const genDescendants = generations[gen];
+        listHTML += `
+      <div style="margin-top: 8px;">
+        <strong>${label} (${genDescendants.length} نفر):</strong>
+        <div style="font-size: 0.9em; margin-top: 4px; color: var(--text-color); opacity: 0.8;">
+          ${genDescendants.map(d => d.name).join('، ')}
+        </div>
+      </div>
+    `;
+      });
+      listHTML += `</div>`;
+      return listHTML;
+    }
+    // ========== NEW: Helper Function to Get All Descendants with Generation Info ==========
+    function getAllDescendants(personId, currentGen = 1, maxDepth = 5, visited = new Set()) {
+      if (currentGen > maxDepth || visited.has(personId)) return [];
+      visited.add(personId);
+      const children = familyData.filter(p => p.parentId === personId);
+      let descendants = [];
+      for (const child of children) {
+        // Add the direct child
+        descendants.push({
+          id: child.id,
+          name: child.name,
+          generation: currentGen
+        });
+        // Recursively add their descendants
+        descendants = descendants.concat(getAllDescendants(child.id, currentGen + 1, maxDepth, new Set(visited)));
+      }
+      return descendants;
+    }
+    function addSpouseToCard(card, spouse) {
+      // Create spouse section
+      const spouseSection = document.createElement('div');
+      spouseSection.className = 'spouse-section';
+      // Add a small title for spouse
+      const spouseTitle = document.createElement('div');
+      spouseTitle.className = 'spouse-title';
+      spouseTitle.textContent = 'همسر:';
+      spouseSection.appendChild(spouseTitle);
+      spouseSection.innerHTML += `
+        <img class="person-avatar"
+             src="${spouse.photo}"
+             alt="${spouse.name}"
+             onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(spouse.name)}&background=random&size=150'">
+        <div class="person-name">${spouse.name}</div>
+        <div class="person-birth">${spouse.birth || 'نامشخص'}</div>
+        <div class="person-desc">${spouse.desc || ''}</div>
+    `;
+      // Add spouse section to existing card
+      card.appendChild(spouseSection);
+    }
+    function getEventIcon(eventType) {
+      const icons = {
+        birth: '👶',
+        wedding: '💍',
+        death: '⚰️',
+        graduation: '🎓',
+        other: '📝'
+      };
+      return icons[eventType] || '📅';
+    }
+    function drawConnections() {
+      // Remove existing connection lines
+      const existingLines = document.querySelectorAll('.connection-line');
+      existingLines.forEach(line => line.remove());
+      const container = document.getElementById('treeContainer');
+      // Draw parent-child connections
+      drawParentChildConnections(container);
+    }
+    function drawParentChildConnections(container) {
+      familyData.forEach(child => {
+        if (!child.parentId) return;
+        const childCard = container.querySelector(`[data-id="${child.id}"]`);
+        const parentCard = container.querySelector(`[data-id="${child.parentId}"]`);
+        if (!childCard || !parentCard) return;
+        const line = createConnectionLine(parentCard, childCard, 'parent-child');
+        if (line) container.appendChild(line);
+      });
+    }
+    function createConnectionLine(fromCard, toCard, type) {
+      const fromRect = fromCard.getBoundingClientRect();
+      const toRect = toCard.getBoundingClientRect();
+      const containerRect = document.getElementById('treeContainer').getBoundingClientRect();
+      // Adjust coordinates for parent-child line
+      let fromX, fromY, toX, toY;
+      if (type === 'parent-child') {
+        fromX = fromRect.left + fromRect.width / 2 - containerRect.left;
+        fromY = fromRect.bottom - containerRect.top;
+        toX = toRect.left + toRect.width / 2 - containerRect.left;
+        toY = toRect.top - containerRect.top;
+      } else {
+        fromX = fromRect.left + fromRect.width / 2 - containerRect.left;
+        fromY = fromRect.top + fromRect.height / 2 - containerRect.top;
+        toX = toRect.left + toRect.width / 2 - containerRect.left;
+        toY = toRect.top + toRect.height / 2 - containerRect.top;
+      }
+      const line = document.createElement('div');
+      line.className = `connection-line ${type}`;
+      const distance = Math.sqrt(Math.pow(toX - fromX, 2) + Math.pow(toY - fromY, 2));
+      const angle = Math.atan2(toY - fromY, toX - fromX) * 180 / Math.PI;
+      if (type === 'marriage') {
+        line.style.width = `${distance}px`;
+        line.style.height = '3px';
+      } else {
+        line.style.width = '2px';
+        line.style.height = `${distance}px`;
+      }
+      line.style.position = 'absolute';
+      line.style.left = `${fromX}px`;
+      line.style.top = `${fromY}px`;
+      line.style.transform = `rotate(${angle}deg)`;
+      line.style.transformOrigin = '0 0'; // Changed for parent-child line
+      return line;
+    }
+    // ===============================
+    // Search & Filter Functions
+    // ===============================
+    function handleSearch(event) {
+      const query = event.target.value.trim().toLowerCase();
+      if (!query) {
+        filteredData = [...familyData];
+        clearHighlights();
+      } else {
+        filteredData = familyData.filter(person => {
+          return (
+            person.name.toLowerCase().includes(query) ||
+            (person.birth && person.birth.includes(query)) ||
+            (person.desc && person.desc.toLowerCase().includes(query)) ||
+            (person.events && person.events.some(event =>
+              event.description?.toLowerCase().includes(query) ||
+              event.year.includes(query)
+            ))
+          );
+        });
+        highlightSearchResults(query);
+      }
+      renderTree();
+      updateStats();
+    }
+    function highlightSearchResults(query) {
+      setTimeout(() => {
+        const cards = document.querySelectorAll('.person-card');
+        cards.forEach(card => {
+          const person = familyData.find(p => p.id == card.getAttribute('data-id'));
+          if (person && filteredData.includes(person)) {
+            card.classList.add('highlight', 'pulse');
+          }
+        });
+      }, 100);
+    }
+    function clearHighlights() {
+      setTimeout(() => {
+        const cards = document.querySelectorAll('.person-card');
+        cards.forEach(card => {
+          card.classList.remove('highlight', 'pulse');
+        });
+      }, 100);
+    }
+    // ===============================
+    // Modal Functions
+    // ===============================
+    function showPersonDetail(person) {
+      const modal = document.getElementById('personModal');
+      const title = document.getElementById('modalTitle');
+      const body = document.getElementById('modalBody');
+      title.textContent = person.name;
+      const spouse = person.spouseId ? familyData.find(p => p.id === person.spouseId) : null;
+      const parent = person.parentId ? familyData.find(p => p.id === person.parentId) : null;
+      // ========== NEW: Calculate Total Descendants Count ==========
+      const totalDescendants = countAllDescendants(person.id);
+      // ========== NEW: Build Descendants Tree for Modal ==========
+      const descendantsTreeHTML = buildDescendantsTree(person.id);
+      body.innerHTML = `
+    <!-- ========== NEW: Add Total Descendants Summary at the Top ========== -->
+    <div style="background: rgba(52, 152, 219, 0.1); padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center;">
+      <h4 style="margin: 0 0 10px 0; color: var(--secondary-color);">📊 آمار نوادگان</h4>
+      <p style="font-size: 1.2em; font-weight: bold; margin: 0;">کل نوادگان: <span style="color: #e74c3c;">${totalDescendants}</span> نفر</p>
+    </div>
+    <div style="text-align: center; margin-bottom: 20px;">
+      <img src="${person.photo}" 
+           alt="${person.name}" 
+           style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--border-color);"
+           onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(person.name)}&background=random&size=150'">
+    </div>
+    <div style="margin-bottom: 20px;">
+      <h4><i class="fas fa-user"></i> اطلاعات شخصی</h4>
+      <p><strong>نام:</strong> ${person.name}</p>
+      <p><strong>سال تولد:</strong> ${person.birth || 'نامشخص'}</p>
+      <p><strong>جنسیت:</strong> ${person.gender === 'male' ? 'مرد' : person.gender === 'female' ? 'زن' : 'نامشخص'}</p>
+      ${parent ? `<p><strong>والد:</strong> ${parent.name}</p>` : ''}
+      <p><strong>توضیحات:</strong> ${person.desc || 'ندارد'}</p>
+    </div>
+    <div style="margin-bottom: 20px;">
+      <h4><i class="fas fa-heart"></i> روابط خانوادگی</h4>
+      <p><strong>همسر:</strong> ${spouse ? spouse.name : 'ندارد'}</p>
+    </div>
+    ${descendantsTreeHTML}
+    ${person.events && person.events.length > 0 ? `
+    <div style="margin-bottom: 20px;">
+      <h4><i class="fas fa-calendar-alt"></i> رویدادهای مهم</h4>
+      <div style="max-height: 200px; overflow-y: auto;">
+        ${person.events.map(event => `
+          <div style="display: flex; align-items: center; gap: 10px; margin: 10px 0; padding: 10px; background: rgba(52, 152, 219, 0.1); border-radius: 8px;">
+            <span style="font-size: 20px;">${getEventIcon(event.type)}</span>
+            <div>
+              <strong>${event.year || 'نامشخص'}</strong>
+              <p style="margin: 0; font-size: 0.9em;">${event.description}</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    ` : ''}
+  `;
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+    // ========== NEW: Helper Function to Count All Descendants ==========
+    function countAllDescendants(personId, visited = new Set()) {
+      if (visited.has(personId)) return 0;
+      visited.add(personId);
+      let count = 0;
+      const children = familyData.filter(p => p.parentId === personId);
+      for (const child of children) {
+        count++; // Count the direct child
+        count += countAllDescendants(child.id, new Set(visited)); // Recursively count their descendants
+      }
+      return count;
+    }
+    function closeModal() {
+      const modal = document.getElementById('personModal');
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    // ========== NEW: Recursive Function to Build Descendants Tree ==========
+    // ========== MODIFIED: Recursive Function to Build Descendants Tree with Counts ==========
+    function buildDescendantsTree(personId, currentDepth = 0, maxDepth = 5) {
+      if (currentDepth >= maxDepth) {
+        return '';
+      }
+      // Find all direct children of this person
+      const children = familyData.filter(p => p.parentId === personId);
+      if (children.length === 0) {
+        return '';
+      }
+      // Start building the HTML for this generation
+      let generationHTML = `
+    <div class="generation-node">
+      <div class="generation-label">نسل ${currentDepth + 1} (${children.length} نفر)</div>
+      <div class="children-list">
+  `;
+      // Add each child
+      children.forEach(child => {
+        const childGenderClass = child.gender === 'male' ? 'male' : child.gender === 'female' ? 'female' : '';
+        generationHTML += `
+        <div class="child-item">
+          <span class="child-name">${child.name}</span>
+          <span class="child-gender ${childGenderClass}">${child.gender === 'male' ? '♂' : child.gender === 'female' ? '♀' : '?'}</span>
+        </div>
+    `;
+        // Recursively add this child's descendants (next generation)
+        const childDescendants = buildDescendantsTree(child.id, currentDepth + 1, maxDepth);
+        if (childDescendants) {
+          generationHTML += childDescendants;
+        }
+      });
+      generationHTML += `
+      </div>
+    </div>
+  `;
+      return generationHTML;
+    }
+    // ===============================
+    // Statistics Functions
+    // ===============================
+    function updateStats() {
+      document.getElementById('totalMembers').textContent = filteredData.length;
+      document.getElementById('totalMales').textContent = filteredData.filter(p => p.gender === 'male').length;
+      document.getElementById('totalFemales').textContent = filteredData.filter(p => p.gender === 'female').length;
+      const generations = new Set();
+      filteredData.forEach(person => {
+        generations.add(getGeneration(person.id));
+      });
+      document.getElementById('totalGenerations').textContent = generations.size;
+    }
+    function showStats() {
+      const totalEvents = familyData.reduce((sum, person) => sum + (person.events ? person.events.length : 0), 0);
+      const marriedCount = familyData.filter(p => p.spouseId).length / 2;
+      const avgAge = familyData.filter(p => p.birth).length > 0 ?
+        Math.round(familyData.filter(p => p.birth).reduce((sum, p) => {
+          const birthYear = parseInt(p.birth.replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)));
+          return sum + (1403 - birthYear); // Current Persian year
+        }, 0) / familyData.filter(p => p.birth).length) : 0;
+      showNotification(`
+    📊 آمار کلی خانواده:<br>
+    کل اعضا: ${familyData.length}<br>
+    مردان: ${familyData.filter(p => p.gender === 'male').length}<br>
+    زنان: ${familyData.filter(p => p.gender === 'female').length}<br>
+    ازدواج‌ها: ${marriedCount}<br>
+    کل رویدادها: ${totalEvents}<br>
+    میانگین سن: ${avgAge} سال
+  `, 'info', 5000);
+    }
+    // ===============================
+    // Theme Functions
+    // ===============================
+    function toggleTheme() {
+      currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+      document.body.setAttribute('data-theme', currentTheme);
+      localStorage.setItem('theme', currentTheme);
+      updateThemeIcon();
+    }
+    function updateThemeIcon() {
+      const themeButton = document.querySelector('.theme-toggle i');
+      themeButton.className = currentTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+    }
+    // ===============================
+    // Export & Print Functions
+    // ===============================
+    function exportData() {
+      const data = {
+        family: familyData,
+        exportDate: new Date().toISOString(),
+        version: '2.0'
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `family-tree-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showNotification('فایل خروجی آماده شد', 'success');
+    }
+    function printTree() {
+      window.print();
+    }
+    // ===============================
+    // Utility Functions
+    // ===============================
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+    function showNotification(message, type = 'info', duration = 3000) {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: ${type === 'success' ? '#27ae60' : type === 'error' ? '#e74c3c' : '#3498db'};
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    z-index: 3000;
+    font-weight: 500;
+    max-width: 300px;
+    animation: slideInRight 0.3s ease-out;
+  `;
+      notification.innerHTML = message;
+      document.body.appendChild(notification);
+      setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease-in forwards';
+        setTimeout(() => document.body.removeChild(notification), 300);
+      }, duration);
+    }
+    // Add keyframe animations for notifications
+    const style = document.createElement('style');
+    style.textContent = `
+  @keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  @keyframes slideOutRight {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+  }
+`;
+    document.head.appendChild(style);
+    // ===============================
+    // Initialize Application
+    // ===============================
+    document.addEventListener('DOMContentLoaded', initializeApp);
+    // Handle modal clicks outside content
+    document.getElementById('personModal').addEventListener('click', (e) => {
+      if (e.target.id === 'personModal') {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
